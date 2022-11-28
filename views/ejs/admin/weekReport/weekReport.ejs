@@ -1,0 +1,102 @@
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">주간보고서 /</span> 주간업무일지</h4>
+<div style="background-color: #ededfa; padding: 30;">
+    <form name="searchForm" action="" method="get" class="easydropdown">
+        <input type="hidden" name="page" value="1">
+
+<% if(searchType1 != '') { %>
+        <input type="date" name="searchType1" value="<%=searchType1%>" />
+ <% } else {%>
+         <input type="date" name="searchType1" value="" />
+<% } %>
+        <select name="searchText" class="dropdown">
+            <option value="">사원이름</option>
+            <option value="권가영" <%if(searchText=="권가영"){%> selected="selected" <%}%>>권가영</option>
+            <option value="박용진" <%if(searchText=="박용진"){%> selected="selected" <%}%>>박용진</option>
+            <option value="서보경" <%if(searchText=="서보경"){%> selected="selected" <%}%>>서보경</option>
+            <option value="정의영" <%if(searchText=="정의영"){%> selected="selected" <%}%>>정의영</option>
+            <option value="김진성" <%if(searchText=="김진성"){%> selected="selected" <%}%>>김진성</option>
+        </select>
+            <button class="btn btn-primary" type="submit" id="searchAction" style="margin-bottom: 10px;">검색</button>
+    </form>
+    <!-- Basic Bootstrap Table -->
+    <div class="card">
+        <!-- <h5 class="card-header">일반회원관리</h5> -->
+        <div class="table-responsive text-nowrap">
+            <form id="userForm" name="userForm" action="" method="">
+                <input type="hidden" id="weekReportId" name="weekReportId" value="" />
+                <table class="table table-hove">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>보고서</th>
+                            <th>작성자</th>
+                            <th>작성날짜</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        <% if(results.length > 0) { %>
+                        <% for(var i = (page * page_num) - page_num; i < (page * page_num); i++) {
+                    if(i > length){
+                        i++;
+                    } else { %>
+                        <tr class="pointer"
+                            onclick="location.href='/admin/weekReportOne?weekReportId=<%=results[i].weekReportId%>&page=<%=page%>&searchType1=<%=searchType1%>&searchText=<%=searchText%>'">
+                            <td>
+                                <%= results.length - i %>
+                            </td>
+                            <td>
+                                <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                <strong>[<%=results[i].adminNick%>]<%=results[i].reportDatefmt%>_업무보고</strong>
+                            </td>
+                            <td>
+                                <%=results[i].adminNick%>
+                            </td>
+                            <td>
+                                <%=results[i].reportDatefmt%>
+                            </td>
+                        </tr>
+                        <% } %>
+                        <% } %>
+                        <% } else { %>
+                        <tr>
+                            <td colspan="7" style="text-align: center;">등록된 글이 없습니다.</td>
+                        </tr>
+                        <% } %>
+
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <!--/ Basic Bootstrap Table -->
+    <div>
+        <div class="demo-inline-spacing">
+            <form>
+                <button type="button" class="btn btn-primary" id="enrollAction"
+                    onclick="location.href='/admin/weekReportInsert'">등록</button>
+            </form>
+        </div>
+        <% if(results.length > 0) { %>
+        <div class="mt_20">
+            <div class="paging" id="page_navi">
+                <ul class="pagination customPaging">
+                    <li> <a href="/admin/weekReport?page=1&searchType1=<%=searchType1%>&searchText=<%=searchText%>" class="num">
+                            <<</a> </li> <li> <a <%if((page<startPage)||(page==1)){%><%} else {%>
+                                    href="/admin/weekReport?page=<%= parseInt(page) - 1 %>&searchType1=<%=searchType1%>&searchText=<%=searchText%>" class="num"
+                                    <% } %>>
+                                    <</a> </li> <% for(var i = startPage; i < endPage ; i++){  %> <li class="paging_on">
+                                        <a href="/admin/weekReport?page=<%= i + 1 %>&searchType1=<%=searchType1%>&searchText=<%=searchText%>"
+                                            <%if(page==i+1){%>class="selected" <%}%> class="num"><%= i + 1 %></a> </li>
+                                            <% } %> <li> <a <%if(page>last-1){%><%} else {%>
+                                                href="/admin/weekReport?page=<%= parseInt(page) + 1 %>&searchType1=<%=searchType1%>&searchText=<%=searchText%>"
+                                                class="num" <% } %>>></a></li>
+                    <li><a href="/admin/weekReport?page=<%= last %>&searchType1=<%=searchType1%>&searchText=<%=searchText%>" class="num">>></a></li>
+                </ul>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</div>
+
+<script>
+</script>

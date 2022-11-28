@@ -1,0 +1,57 @@
+<script type="text/javascript">
+   $(document).ready(function () {
+      var nav = document.getElementById('layout-navbar');
+      var footer = document.getElementById('footer');
+
+      $("#enroll_btn").click(function () {
+         // const aa = Array.from(editor.ui.componentFactory.names());
+         // console.log(aa);
+         var writTitle = $("#writTitle").val();
+
+         if (writTitle == "") {
+            alert("제목을 입력하세요.");
+            $("#writTitle").focus();
+            return false;
+         }
+
+         if (confirm("등록하시겠습니까?") == true) {
+            $("#certiWrite").attr("action", "certiInsert");
+            $("#certiWrite").submit();
+         } else {
+            return;
+         }
+      });
+   });
+</script>
+
+<div class="col-xs-6">
+   <!-- HTML5 Inputs -->
+   <div class="card mb-4">
+      <h5 class="card-header"> 특허&인증 등록</h5>
+      <div class="card-body">
+         <!-- 컨텐츠 -->
+         <form action="" id="certiWrite" method="post" enctype="multipart/form-data" autocomplete="off">
+            <input type="hidden" id="certiContent" name="certiContent" value="">
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label" for="text-input">제목</label>
+               <div class="col-md-10">
+                  <input class="form-control" id="writTitle" type="text" name="certiTitle" value="">
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label">이미지</label>
+               <div class="col-md-10" style="display: flex; flex-direction: column; gap: 25px; padding-left: 15px">
+                  <input type="file" id="file" name="file" />
+               </div>
+            </div>
+            <!--option 버튼  -->
+            <div class="demo-inline-spacing">
+               <button type="button" class="btn btn-outline-success" id="enroll_btn">등록</button>
+               <button type="button" class="btn btn-outline-primary" onclick="history.go(-1)">취소</button>
+            </div>
+
+      </form>
+   </div>
+</div>
+</div>
+

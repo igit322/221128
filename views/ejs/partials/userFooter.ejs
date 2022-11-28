@@ -1,0 +1,39 @@
+<footer>
+    <div class="footer_wrap">
+        <div class="img-wrap">
+            <img src="/public/user/main/푸터로고.png" alt="footer_logo">
+        </div>
+        <div class="footer_content">
+            <p class="footer_content_wht">주식회사 리소프트는 새로운 소프트웨어로 진화하여 여러분께 응답드리고자 노력하겠습니다.</p>
+            <div class="footer_info_wrap">
+                <div class="footer_info">
+                    <p><span>상호. </span><span>(주)리소프트</span></p>
+                    <p><span>대표이사. </span><span>오유나</span></p>
+                    <p><span>사업자등록번호. </span><span>722-81-02219</span></p>
+                    <p><span>개인정보책임자. </span><span>이현지</span></p>
+                    <pre>
+                    </pre>
+                    <p><span>주소. </span><span>(41260) 대구광역시 동구 동대구로 465, 대구스케일업허브(DASH) 713호 (신천동 106)</span></p>
+                    <p><span>전화. </span><a href="tel:053-475-2110" style="cursor:text"><span>(053) 475-2110</span></a><i
+                            class="fa-solid fa-pipe"></i>
+                        <p><span>팩스. </span><a href="javascript:void(0);" style="cursor: text"><span>(0504)
+                                    257-5966</span></a>
+                            <p><span>이메일. </span><span>call@resoft.kr</span></p>
+                    <div id="admin" style="display: none;"><a href="/admin" class="admin_btn" style="color: #321cc1; background-color: azure;"><span>&nbsp;&nbsp;관리자 페이지 이동하기&nbsp;&nbsp;</span></a></div>
+                </div>
+            </div><br />
+            <p class="copyright">Copyright(c) RESOFT CO.LTD. All right reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    var adminDiv = document.getElementById("admin");
+    $(document).bind('keypress', function(event) {
+        if( event.which === 82 && event.shiftKey ) {
+            adminDiv.style.display = "block"
+        }
+    });
+    
+    
+</script>

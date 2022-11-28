@@ -1,0 +1,211 @@
+<h4>새로운 소식 관리</h4>
+<div style="background-color: #ededfa; padding: 30;">
+    <form name="searchForm" action="" method="get" class="easydropdown">
+        <input type="hidden" id="page" name="page" value="<%=page%>">
+    </form>
+<!-- Basic Bootstrap Table -->
+<div class="card">
+
+    <form id="newsForm" name="newsForm" action="" method="">
+        <input type="hidden" id="page" name="page" value="<%=page%>">
+        <% if(news.length > 0) { %>
+        <input type="hidden" name="newsTitle" id="newsTitle" value="<%=news[0].newsTitle%>">
+        <%}%>
+        <input type="hidden" id="newsId" name="newsId" value="" />
+    <div class="table-responsive text-nowrap">
+            <table class="table table-hove">
+            <thead>
+                <tr>
+                    <!-- <th><input type="checkbox" name="chkAll" id="chkAll" /></th> -->
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>날짜</th>
+                    <!-- <th>조회수</th> -->
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0" id="tbody">
+                <% if(news.length > 0) { 
+                    for(var i = (page * page_num) - page_num; i < (page * page_num); i++) { 
+                    if(i > length){
+                        i++;
+                    } else { if(news[i].newsFix == 1){ %> <tr class="pointer" style="background-color: rgb(190 243 194);"
+                onclick="location.href='/admin/newsSelectOne?page=<%=page%>&searchText=<%=searchText%>&newsId=<%=news[i].newsId%>'">
+                 <% }else{ %>
+                        <tr class="pointer"
+                onclick="location.href='/admin/newsSelectOne?page=<%=page%>&searchText=<%=searchText%>&newsId=<%=news[i].newsId%>'">
+                <% } %>
+            <!-- <td onclick='event.cancelBubble=true;'><input type="checkbox" id="chk" name="chk"
+                    value="<%=news[i].newsId %>" />
+            </td> -->
+            <td>
+                <%=news.length - i%>
+            </td>
+            <td>
+                <%=news[i].newsTitle%>
+            </td>
+            <td>
+                <%= news[i].newsDateFmt %>
+            </td>
+            <!-- <td>
+                <%= news[i].hitCount %></td> -->
+            </tr>
+            <% } %>
+            <% } %>
+            <% } else { %>
+            <tr>
+                <td colspan="7">등록된 게시물이 없습니다.</td>
+            </tr>
+            <% } %>
+
+        </td>
+    </tbody>
+</table>
+</form>
+</div>
+</div>
+
+    <div style="margin-top: 30px; margin-left: 20px;">
+        <button id="enrollAction" class="btn btn-primary"
+            onclick="location.href='/admin/newsInsert'">등록</button>
+        <!-- <button class="btn btn-danger" type="button" id="delete_btn">삭제</button> -->
+    </div>
+
+
+    <div>
+        <div class="mt_20">
+            <div class="paging" id="page_navi">
+                <% if(news.length > 0) { %>
+                <ul class="pagination customPaging">
+                    <li>
+                        <a href="/admin/newsMain?page=1&searchText=<%=searchText%>"
+                            class="num">
+                            << </a> </li> <li>
+                                <a <%if((page==1)){%><%} else {%>
+                                    href="/admin/newsMain?page=<%= parseInt(page) - 1 %>&searchText=<%=searchText%>"
+                                    class="num" <% } %>>
+                                    < </a> </li> <% for(var i = startPage; i < endPage; i++){  %> <li class="paging_on">
+                                        <a href="/admin/newsMain?page=<%= i + 1 %>&searchText=<%=searchText%>"
+                                            <%if(page==i+1){%>class="selected" <%}%> class="num"><%= i + 1 %></a> </li>
+                                            <% } %> <li> <a <%if(page>last-1){%><%} else {%>
+                                                href="/admin/newsMain?page=<%= parseInt(page) + 1 %>&searchText=<%=searchText%>"
+                                                class="num" <% } %>>></a></li>
+                    <li><a href="/admin/newsMain?page=<%= last%>&searchText=<%=searchText%>"
+                            class="num">>></a></li>
+                </ul>
+                <%}%>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--/ Basic Bootstrap Table -->
+
+<script>
+    $(document).ready(function () {
+        searchajax();
+        const formObj = $("form[name='newsForm']");
+        // 삭제
+
+        $("#delete_btn").on("click", function () {
+            var chkArr = [];
+            $("input[name=chk]:checked").each(function () {
+                chkArr.push($(this).val());
+            });
+            $('#newsId').val(chkArr);
+            if (chkArr == "") {
+                alert("삭제할 목록을 선택해주세요.");
+                return false;
+            }
+            formObj.attr("action", "/admin/newsDelete/brdsDelete");
+            formObj.attr("method", "get");
+            if (confirm("삭제하시겠습니까?") == true) {
+                formObj.submit();
+            } else {
+                return false;
+            }
+        })
+        //쿼리스트링 페이지
+        function getUrlParams() {
+            var params = {};
+            window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
+                params[key] = value;
+            });
+            return params;
+        }
+        var param = getUrlParams();
+        var page = document.getElementById("page");
+        page.value = param.page;
+        const searchForm = $("form[name='searchForm']");
+
+    });
+
+    // 선택
+    $("#chkAll").click(function () {
+        if ($("#chkAll").is(":checked"))
+            $("input[name=chk]").prop("checked", true);
+        else
+            $("input[name=chk]").prop("checked", false);
+    });
+    $("input[name=chk]").click(function () {
+        var total = $("input[name=chk]").length;
+        var checked = $("input[name=chk]:checked").length;
+        if (total != checked)
+            $("#chkAll").prop("checked", false);
+        else
+            $("#chkAll").prop("checked", true);
+    });
+
+
+    function paging(data) {
+        var datas = data;
+        var dataLength = datas.length;
+        var dataPageNum = datas.page_num;
+        var newsDivId = datas.ajaxSearch[0].newsDivId;
+        var datasPage = Number(datas.page);
+        var datasLast = Number(datas.last);
+        var startPage = Number(datas.startPage);
+        var endPage = Number(datas.endPage);
+        var temp = '';
+        temp = `<li>
+                <a href="/admin/newsMain?page=1&searchText=${datas.searchText}"
+                class="num">
+                << </a> </li> <li>
+                <a `
+        if (datasPage == 1) {
+            temp += `><</a></li>`
+        } else {
+            temp += `href="/admin/newsMain?page=${datasPage - 1}&searchText=${datas.searchText}"
+                class="num">
+                < </a> </li>`
+        }
+        for (var i = datas.startPage; i < datas.endPage; i++) {
+            temp += `<li class="paging_on">
+                    <a href="/admin/newsMain?page=${i + 1}&searchText=${datas.searchText}"`
+            if (i != 0) {
+                temp += `class="num">${i + 1}</a> </li>`
+            } else {
+                temp +=
+                    `class="selected" style="background-color:#696CFF;><span style="color:white;">${i + 1}</span></a> </li>`
+            }
+        }
+        temp += `<li> <a `
+        if (datasPage == datasLast) {
+            temp += `> > </a></li>`
+            temp += `<li><a href='/admin/newsMain?page=${datasPage}&searchText=${datas.searchText}'`
+            temp += ` class="num">>></a></li>`
+        } else {
+            temp += `href="/admin/newsMain?page=${datasPage + 1}&searchText=${datas.searchText}"
+                    class="num">></a></li>
+                    <li><a href="/admin/newsMain?newsDivId=${newsDivId}}&page=${datasLast}&searchText=${datas.searchText}"
+                    class="num">>></a></li>`
+        }
+
+        $(".customPaging").html(temp);
+    }
+
+    //댓글 확인
+    function comment(theURL, winName, features, newsId) {
+        theURL += '?newsId=' + newsId;
+        window.open(theURL, winName, features);
+    }
+</script>

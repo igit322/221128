@@ -1,0 +1,368 @@
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=859d5827dea74945a8d9243df81edcf3"></script>
+
+<%- include('../partials/userHeader.ejs') %>
+<style>
+	.customer_list {
+		display: none;
+	}
+
+
+	.slick-tracker {
+		width: 1400px !important;
+	}
+
+	.btn-3 {
+		justify-content: center;
+	}
+
+	.btn {
+		position: relative;
+		display: inline-block;
+		cursor: pointer;
+		background: transparent;
+	}
+
+	.btn span {
+		position: relative;
+		text-transform: uppercase;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		line-height: 40px;
+		display: inline-block;
+		transition: 0.3s;
+		background: white;
+	}
+
+	.btn .second-btn-txt {
+		background: var(--pink-color);
+	}
+
+	.btn-3 {
+		padding: 5px;
+	}
+
+	.btn-3::before,
+	.btn-3::after {
+		background: transparent;
+		z-index: 2;
+		position: absolute;
+		content: "";
+	}
+
+	/* 11. hover-border-3 */
+	.btn.hover-border-1::before,
+	.btn.hover-border-1::after {
+		width: 0%;
+		height: 0%;
+		/* transition: 0.35s; */
+		transition: width 0.2s 0.15s linear, height 0.15s linear, opacity 0s 0.35s;
+		/* transition: width 0.2s(duration) 0.15s(delay) */
+		opacity: 0;
+		position: absolute;
+		content: "";
+	}
+
+	.btn.hover-border-1::before {
+		top: 0px;
+		left: 0px;
+		border-left: 1px solid white;
+		border-top: 1px solid white;
+		position: absolute;
+		content: "";
+	}
+
+	.btn.hover-border-1::after {
+		bottom: 0;
+		right: 0;
+		border-right: 1px solid white;
+		border-bottom: 1px solid white;
+		position: absolute;
+		content: "";
+	}
+
+	.btn.hover-border-1:hover::before,
+	.btn.hover-border-1:hover::after {
+		width: 99%;
+		height: 98%;
+		transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;
+		/* height 0.15s(duration)/ 0.2s(delay) */
+		opacity: 1;
+		position: absolute;
+		content: "";
+	}
+</style>
+<script>
+	$(document).ready(function () {
+
+		$('#slide3>ul>li').hide();
+		$('#slide3>ul>li:first-child').show();
+		setInterval(function () {
+			$('#slide3>ul>li:first-child').fadeOut().next().fadeIn().end(5000).appendTo('#slide3>ul');
+			$("#slide_title1").toggle();
+			$("#slide_title2").toggle();
+		}, 6000);
+
+
+		var active_num = $("input:radio[name=tab]:checked").val();
+
+		$("input:radio[name=tab]").change(function () {
+			/* var chk_tab = $(":input:radio[name=tab]:checked").val();
+			
+			$(".content1_wrap").hide();
+			$("#con"+chk_tab).show(); */
+
+			var click_num = $(this).val();
+
+			//alert("active_num : "+active_num+", click_num : "+click_num);
+
+			if (active_num - click_num > 0) {
+				prev(active_num - click_num);
+			} else if (active_num - click_num < 0) {
+				next(click_num - active_num);
+			}
+
+			active_num = click_num;
+		});
+
+		$('.news_list').slick({
+			slidesToShow: 4,
+			slidesToScroll: 1,
+			autoplay: true,
+			autoplaySpeed: 3000,
+			arrows: false,
+			dots: false,
+			pauseOnHover: false,
+			responsive: [{
+				breakpoint: 940,
+				settings: {
+					slidesToShow: 3
+				}
+			}, {
+				breakpoint: 767,
+				settings: {
+					slidesToShow: 2
+				}
+			}, {
+				breakpoint: 430,
+				settings: {
+					slidesToShow: 1
+				}
+			}]
+		});
+	});
+
+	function prev(cnt) {
+		var move_width = 1910 * cnt;
+
+		$(".content_slide").css({
+			left: "-=" + move_width + "px"
+		});
+
+		for (var i = 0; i < cnt; i++) {
+			$(".content_slide").children(":last").insertBefore($(".content_slide").children(
+				":first")); // first 이전에 last 삽입			
+		}
+
+		/* $(".content_slide").stop(true).animate({left : "0"}, 500, function() {
+			$(this).css({left : "0"});
+		}); */
+
+		$(".content_slide").stop(true).css({
+			opacity: 0,
+			left: "0"
+		});
+		$(".content_slide").stop(true).animate({
+			opacity: 1
+		}, 500);
+	}
+
+	function next(cnt) {
+		var move_width = 1910 * cnt;
+
+		/* $(".content_slide").stop(true).animate({left : "-="+move_width+"px"}, 500, function() {
+			for(var i=0; i<cnt; i++){
+				$(this).children(":first").insertAfter($(this).children(":last"));
+			}
+			$(this).css({left : "0"});
+		}); */
+
+		for (var i = 0; i < cnt; i++) {
+			$(".content_slide").children(":first").insertAfter($(".content_slide").children(":last"));
+		}
+		$(".content_slide").stop(true).css({
+			opacity: 0,
+			left: "0"
+		});
+		$(".content_slide").stop(true).animate({
+			opacity: 1
+		}, 500);
+	}
+
+
+	var fileArr = new Array();
+	var noImg = false;
+
+
+	function fnDetail(flag, idx) {
+		window.location.href = "user/boardDetailDir.action?flag=" + flag + "&idx=" + idx;
+	}
+</script>
+
+<div class="map-wrap">
+	<div id="map" class="indexKakaoMap wow fadeIn" data-wow-delay="0.3s"></div>
+	<div class="map-info-wrap wow fadeInRight" data-wow-delay="0.5s">
+		<div class="map-info">
+			<p>TEL</p>
+			<a href="tel:053-475-2110;" style="cursor: text">
+				<p>(053) 475-2110</p>
+			</a>
+		</div>
+		<div class="map-info">
+			<p>FAX</p>
+			<a href="javascript:void(0);" style="cursor: text">
+				<p>(0504) 257-5966</p>
+			</a>
+		</div>
+		<div class="map-info">
+			<p>E-MAIL</p>
+			<p>call@resoft.kr</p>
+		</div>
+		<div class="map-info">
+			<p>ADDRESS</p>
+			<p>(41260) <br />
+				대구광역시 동구 동대구로 465,
+				대구스케일업허브(DASH) 713호<br />
+				(주)리소프트
+			</p>
+		</div>
+	</div>
+</div>
+
+
+
+<%- include('../partials/userFooter.ejs') %>
+
+<script>
+	// 카카오 지도 api
+	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+	var options = { //지도를 생성할 때 필요한 기본 옵션
+		center: new kakao.maps.LatLng(35.871691843254716, 128.62496478375644), //지도의 중심좌표.
+		level: 3 //지도의 레벨(확대, 축소 정도)
+	};
+
+	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+	// 마커가 표시될 위치입니다 
+	var markerPosition = new kakao.maps.LatLng(35.871691843254716, 128.62496478375644);
+
+	var imageSrc = '/public/user/main/지도마커.png', // 마커이미지의 주소입니다    
+		imageSize = new kakao.maps.Size(220, 45), // 마커이미지의 크기입니다
+		imageOption = {
+			offset: new kakao.maps.Point(27, 69)
+		}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+		markerPosition = new kakao.maps.LatLng(35.871691843254716, 128.62496478375644); // 마커가 표시될 위치입니다
+
+
+	// 마커를 생성합니다
+	var marker = new kakao.maps.Marker({
+		position: markerPosition,
+		image: markerImage
+	});
+
+	// 마커가 지도 위에 표시되도록 설정합니다
+	marker.setMap(map);
+			
+			// 아이콘 8개
+			if (window.matchMedia("screen and (max-width: 1217px)").matches) {
+				$(function () {
+					$(".customer_list").hide();
+					var array = [];
+			var list = document.getElementsByClassName('customer_list');
+
+			for (var i = 0; i < list.length; i++) {
+				array.push(list[i]);
+			}
+
+			var visiArray = [];
+			visiArray = array.slice(0, 8);
+			visiArray = visiArray.concat(array.slice(8, 16).reverse());
+			visiArray = visiArray.concat(array.slice(16, 24));
+			
+			var second = 0;
+			for (var i = 0; i < visiArray.length; i++) {
+				second = second + 0.1;
+				visiArray[i].setAttribute('data-wow-delay', second + 's')
+				visiArray[i].style.display = 'block';
+			}
+			
+			var load = document.getElementsByClassName('load')[0];
+			//숨겨진 아이콘
+			load.addEventListener('click', function (e) {
+				e.preventDefault();
+				var hiddenArray = [];
+				hiddenArray = array.slice(24, 27);
+				
+				var hSecond = 0;
+				for (var i = 0; i < hiddenArray.length; i++) {
+					hSecond = hSecond + 0.1;
+					hiddenArray[i].setAttribute('data-wow-delay', hSecond + 's');
+					hiddenArray[i].style.display = 'block';
+				}
+				load.style.display="none";
+				
+				window.scrollTo(0, window.pageYOffset + 1);
+				window.scrollTo(0, window.pageYOffset - 1);
+
+				
+				// if (document.querySelectorAll('.customer_list[style="display:none;"]').length == 0) {
+				// 	load.style.display = "none";
+				// }
+			});
+		});
+	}
+
+
+	// 아이콘 4개
+	if (window.matchMedia("screen and (max-width: 940px)").matches) {
+		$(function () {
+			$(".customer_list").hide();
+			var list = document.getElementsByClassName('customer_list');
+			var hiddenArray = [];
+			var openArray = [];
+			$(".customer_list").slice(0, 12).show();
+			for (var i = 0; i < list.length; i++) {
+				if (list[i].style.display == "none") {
+					hiddenArray.push(list[i]);
+				} else {
+					openArray.push(list[i]);
+				}
+			}
+			// 보여진 아이콘
+			var second = 0
+			for (var i = 0; i < openArray.length; i++) {
+				second = second + 0.1
+				openArray[i].setAttribute('data-wow-delay', second + 's');
+			}
+			//숨겨진 아이콘
+			var hSecond = 0;
+			$(".load").click(function (e) {
+				e.preventDefault();
+				for (var i = 0; i < hiddenArray.length; i++) {
+					hSecond = hSecond + 0.1;
+					hiddenArray[i].setAttribute('data-wow-delay', hSecond + 's');
+					hiddenArray[i].style.display = 'block';
+					if ($(".customer_list:hidden").length == 0) {
+						$(".load").hide();
+					}
+				};
+			});
+			window.scrollTo(0, window.pageYOffset + 1);
+			window.scrollTo(0, window.pageYOffset - 1);
+		})
+	}
+</script>

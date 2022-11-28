@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resoft</title>    
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/public/images/img1/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/public/css/reset.css">
+    <link rel="stylesheet" href="/public/css/animate.css">
+    <link rel="stylesheet" href="/public/css/magic.css">
+    <link rel="stylesheet" href="/public/css/menu.css">
+    <link rel="stylesheet" href="/public/css/newslist/newslist.css">
+    <!-- Noto Sans 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet"> 
+    <script src="https://code.jquery.com/jquery-latest.js"></script>  
+    <!-- wow 애니메이션 js -->
+    <script src="/public/js/wow.min.js"></script>
+    <script>new WOW().init();</script>  
+</head>
+<body>    
+    <div id="load">
+        <img src="/public/images/img1/loading.gif" alt="loading">
+    </div>
+    <header id="header">
+        <div class="won">
+        <a class="logo" href="/"><img src="/public/images/img1/logo-Resoft.svg" alt="로고"></a>
+        <div id="gon">
+        <nav>
+            <ul id="main-nav">
+                <li><a class="dpdl" href="/about">회사소개</a>
+                    <ul class="so close paddingpx1">
+                        <li><a class="menu" href="/about">회사소개</a></li>
+                        <li><a href="/about#intro">REsoft소개</a></li>
+                        <li><a href="/about#history">연혁</a></li>
+                        <li><a href="/about#organ">조직도</a></li>
+                        <li><a href="/about#certi">특허&인증</a></li>
+                        <li><a href="/about#direc">오시는 길</a></li>
+                    </ul>
+                </li>
+                <li><a class="dpdl" href="/overview">사업현황</a>
+                    <ul class="so close paddingpx2">
+                        <li><a class="menu" href="/overview">사업현황</a></li>
+                        <li><a href="/overview#content-ecoce">ECOCE</a></li>
+                        <li><a href="/overview#content-moado">moaDo</a></li>
+                        <li><a href="/overview#content-etc">Etc</a></li>
+                    </ul>
+                </li>
+                <li><a class="dpdl" href="/portfolio">포트폴리오</a>
+                    <ul class="so close paddingpx3">
+                        <li><a class="menu" href="/portfolio">포트폴리오</a></li>
+                        <li><a href="/portfolio#">포트폴리오</a></li>
+                    </ul>
+                </li>
+                <li><a class="dpdl dhdl here" href="/newslist">REsoft소식</a>
+                    <ul class="so close paddingpx4">
+                        <li><a class="menu" href="/newslist">REsoft소식</a></li>
+                        <li><a href="/newslist#news-title-wrap">REsoft소식</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>  
+        <div class="so close"></div>
+        <a class="ham"><img src="/public/images/img1/company_N_busines_N_yard-menu.svg" alt="토글" ></a>     
+        </div>
+        </div>
+    </header>   
+    <div class="top_back" style="width:100%"></div>
+    <div class="top">
+        <p>REsoft소식</p>
+    </div>  
+    <section class="resoft-news">
+        <div class="news-title-wrap" id="news-title-wrap">
+            <h1 class="news-title">REsoft 소식</h1>
+            <h4 class="sub-title">NEWS</h4>
+        </div>
+        <div class="news-box-wrapper">
+            <ul id="news-box">                
+                <% for(i=0; i < news.length; i++){%>
+                <li class="news-cont wow fadeInUp" data-wow-delay="0.5s">                    
+                    <a href="/article?newsId=<%=news[i].newsId%>"><div class="news-img-wrap"><img class="news-img" src="<%=news[i].newsThumbnail%>"></div>
+                    <p class="news-cont-title"><%=news[i].newsTitle%></p>
+                    <p class="news-cont-day"><%=news[i].dateFmt%></p></a>
+                </li>               
+                <%}%>
+            </ul>
+            <button class="loadButton">더보기</button>
+        </div>
+    </section>
+    <!-- 푸터 -->
+    <%- include('../../partials/footer.ejs') %>
+<script src="/public/css/newslist/newslist.js"></script>
+</body>
+</html>

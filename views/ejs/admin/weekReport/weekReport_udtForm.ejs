@@ -1,0 +1,189 @@
+<style>
+    #warning{
+        font-size: 1.2rem;
+        color:red
+    }
+</style>
+<div class="col-xs-6">
+    <!-- HTML5 Inputs -->
+    <div class="card mb-4">
+       
+        <h5 class="card-header">주간업무일지 수정</h5>
+
+        <div class="card-body">
+            <form id="eventEnrollForm" name="eventEnrollForm" role="form" method="post">
+                <input type="hidden" name="page" value="<%=page%>">
+                <input type="hidden" name="searchType1" value="<%=searchType1%>">
+                <input type="hidden" name="searchText" value="<%=searchText%>">
+                <input type="hidden" name="weekReportId" value="<%=weekReportId%>">
+
+                <div class="mb-3 row" id="reportInsert">
+                    <label for="html5-text-input" class="col-md-2 col-form-label">업무 내용</label>
+                    <div class="col-md-10" style="display: flex; margin-bottom:10px;">
+                        <input class="form-control" type="text" value="<%=reports[0]%>" id="report" name="report" />
+                        <button style="margin-left: 10px; width: 142px;" class="btn btn-info" type="button"
+                            onclick="AddReportLine()">추가</button>
+                    </div><br>
+                    <% for (var i = 1; i< reports.length; i++){%>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10" style="display: flex; margin-bottom: 10px;">
+                            <input name="report" id="report" class="form-control" type="text"
+                             value="<%=reports[i]%>"><button class="btn btn-danger" id="deleteWeek" 
+                             style="margin-left: 10px; width: 142px;">삭제</button></div>
+                   <%}%>  
+                </div>
+                <div class="mb-3 row" id="nextPlanInsert">
+                    <label for="html5-text-input" class="col-md-2 col-form-label">다음주 업무 계획</label>
+                    <div class="col-md-10" style="display: flex; margin-bottom:10px;">
+                        <input class="form-control" type="text" value="<%=nextPlans[0]%>" id="nextPlan" name="nextPlan" />
+                        <button style="margin-left: 10px;width: 142px;" class="btn btn-info" type="button"
+                            onclick="AddNextPlan()">추가</button>
+                    </div><br>
+                    <% for (var i = 1; i< nextPlans.length; i++){%>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10" style="display: flex; margin-bottom: 10px;">
+                            <input name="nextPlan" id="nextPlan" class="form-control" type="text"
+                             value="<%=nextPlans[i]%>"><button class="btn btn-danger" id="deleteNext" 
+                             style="margin-left: 10px; width: 142px;">삭제</button></div>
+                   <%}%>  
+                </div>
+                <div class="mb-3 row">
+                    <label for="html5-text-input" class="col-md-2 col-form-label">비고 (건의사항)</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" value="" id="note" name="note" />
+                    </div>
+                </div>
+                <div class="demo-inline-spacing">
+                    <button type="button" class="btn btn-primary" id="enroll_btn" onclick="updateWeek()">수정</button>
+                    <button type="button" class="btn btn-danger" onclick="history.go(-1)">취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+       function AddReportLine() {
+            var reports = document.getElementById("eventEnrollForm").querySelectorAll("#report");
+            
+            if(reports.length > 10){
+                alert("최대 10개까지 입력가능합니다.");
+                    return false;
+            } 
+            // div 추가
+            var nDiv2 = document.createElement("div");
+            nDiv2.classList.add('col-md-2');
+            document.getElementById("reportInsert").appendChild(nDiv2);
+
+            // div 추가
+            var nDiv = document.createElement("div");
+            nDiv.classList.add('col-md-10');
+            nDiv.style = "display:flex; margin-bottom:10px;";
+            document.getElementById("reportInsert").appendChild(nDiv);
+
+            // textarea 추가
+            var nReport = document.createElement("input");
+            var sName = 'report';
+            var sId = 'report';
+            nReport.setAttribute("name", sName);
+            nReport.setAttribute("id", sId);
+            nReport.classList.add("form-control");
+            nReport.setAttribute("type", "text");
+            nReport.setAttribute("value", "");
+            nDiv.appendChild(nReport);
+
+            // button 추가
+            var nButton = document.createElement("button");
+            nButton.classList.add('btn', 'btn-danger');
+            nButton.style = "margin-left: 10px; width: 142px;";
+            nButton.innerHTML = "삭제";
+            nButton.setAttribute("id","deleteWeek");
+            nDiv.appendChild(nButton);
+            // // 줄바꿈
+            // var tagBr = document.createElement("br");
+            // nDiv.appendChild(tagBr);
+
+        }
+
+        function AddNextPlan() {
+            var nextPlans = document.getElementById("eventEnrollForm").querySelectorAll("#nextPlan");
+
+            if(nextPlans.length >10){
+                alert("최대 10개까지 입력가능합니다.");
+                    return false;
+            }
+
+            // div 추가
+            var nDiv2 = document.createElement("div");
+            nDiv2.classList.add('col-md-2');
+            document.getElementById("nextPlanInsert").appendChild(nDiv2);
+
+            // div 추가
+            var nDiv = document.createElement("div");
+            nDiv.classList.add('col-md-10');
+            nDiv.style = "display:flex; margin-bottom:10px;";
+            document.getElementById("nextPlanInsert").appendChild(nDiv);
+
+            // textarea 추가
+            var nNextPlan = document.createElement("input");
+            var sName = 'nextPlan';
+            var sId = 'nextPlan';
+            nNextPlan.setAttribute("name", sName);
+            nNextPlan.setAttribute("id", sId);
+            nNextPlan.classList.add("form-control");
+            nNextPlan.setAttribute("type", "text");
+            nNextPlan.setAttribute("value", "");
+            nDiv.appendChild(nNextPlan);
+
+            // button 추가
+            var nButton = document.createElement("button");
+            nButton.classList.add('btn', 'btn-danger');
+            nButton.style = "margin-left: 10px; width: 142px;";
+            nButton.innerHTML = "삭제"
+            nButton.setAttribute("id","deleteNext");
+            nDiv.appendChild(nButton);
+        }
+
+        function updateWeek() {
+
+            var reports = document.getElementById("eventEnrollForm").querySelectorAll("#report");
+            var nextPlans = document.getElementById("eventEnrollForm").querySelectorAll("#nextPlan");
+            
+            for (var i = 0; i < reports.length; i++) {
+                if (reports[i].value == "") {
+                    alert("업무 내용을 입력하세요.");
+                    reports[i].focus();
+                    return false;
+                }
+            }
+
+            for (var i = 0; i < nextPlans.length; i++) {
+                if (nextPlans[i].value == "") {
+                    alert("다음주 업무 계획을 입력하세요.");
+                    nextPlans[i].focus();
+                    return false;
+                }
+            }
+
+
+            if (confirm("수정하시겠습니까?") == true) {
+                $("#eventEnrollForm").attr("action", "/admin/weekReportUpdate");
+                $("#eventEnrollForm").submit();
+            } else {
+                return;
+            }
+        };
+
+    // 업무내용 삭제
+    $(document).on("click","#deleteWeek",function(e){ 
+        $(this).parent().prev().remove();
+        $(this).parent().remove();
+        return false;
+
+    });
+    // 다음주업무계획 삭제
+    $(document).on("click","#deleteNext",function(e){ 
+        $(this).parent().prev().remove();
+        $(this).parent().remove();
+        return false;
+
+    });
+    </script>

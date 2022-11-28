@@ -1,0 +1,168 @@
+<!-- ckeditor -->
+<script src="../../../../public/build/ckeditor.js"></script>
+<style>
+   .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+      border-color: var(--ck-color-base-border);
+      height: 40%;
+   }
+
+   .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused {
+      height: 400px;
+   }
+
+   .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+      height: 400px;
+   }
+</style>
+
+<div class="col-xs-6">
+   <!-- HTML5 Inputs -->
+   <div class="card mb-4">
+      <h5 class="card-header"><%=boardName%> 수정</h5>
+      <div class="card-body">
+         <!-- 컨텐츠 -->
+         <form name="udtForm" enctype="multipart/form-data">
+            <input type="hidden" name="fileId" value="">
+            <input type="hidden" name="fileRoute" value="">
+            <input type="hidden" name="page" value="<%=page%>">
+            <input type="hidden" id="writContent" name="boardContent" value="">
+            <input type="hidden" id="boardDivId" name="boardDivId" value="<%=result[0].boardDivId%>">
+            <input type="hidden" id="boardName" name="boardName" value="<%=boardName%>">
+            <input type="hidden" id="projectId" name="projectId" value="<%=projectId%>">
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label" for="text-input">글번호</label>
+               <div class="col-md-10">
+                  <input class="form-control" id="writId" type="text" name="boardId" readonly value="<%=boardId%>">
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label" for="text-input">제목</label>
+               <div class="col-md-10">
+                  <input class="form-control" id="writTitle" type="text" name="boardTitle"
+                     value="<%=result[0].boardTitle%>">
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label" for="text-input">내용</label>
+               <div class="col-md-10">
+                  <textarea name="editor" class="editor" id="editor"><%-result[0].boardContent %></textarea>
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label">첨부파일</label>
+               <% if(result[0].fileRoute != null) { %>
+               <div class="file-wrap banner_img_wrap col-md-10">
+                  <% for(var i = 0; i < result.length; i++) {%>
+                  <p><span><%=result[i].fileOrgName%></span>
+                     <button name="boardFileDelete" data-fileRoute="<%=result[i].fileRoute%>"
+                        data-fileId="<%=result[i].fileId%>"
+                        class="btn btn-block btn-outline-danger fileDelete">삭제</button></p>
+                  <% } %>
+                  <% if(result.length < 5) { %>
+                  <% for(var i = 0; i < 5-result.length; i++) {%>
+                  <br><br><input type="file" id="file" name="file" /><br><br>
+                  <% } %>
+                  <% } %>
+               </div>
+               <% } else {%>
+               <div class="col-md-10" style="display: flex; flex-direction: column; gap: 25px; padding-left: 15px">
+                  <input type="file" id="file" name="file">
+                  <input type="file" id="file" name="file" />
+                  <input type="file" id="file" name="file" />
+                  <input type="file" id="file" name="file" />
+                  <input type="file" id="file" name="file" />
+               </div>
+               <% } %>
+
+            </div>
+
+            <% if(projectId != null) { %>
+            <div class="mb-3 row" style="margin-top: 30px; margin-bottom: 30px;">
+               <label class="col-md-1 col-form-label" for="text-input">상단고정여부</label>
+               <div class="col-md-10">
+                  <% if(result[0].boardFix == 1){%>
+                  <input type="checkbox" style='zoom:3.0;' name="boardFix" value="1" checked>
+                  <%}else{%>
+                  <input type="checkbox" style='zoom:3.0;' name="boardFix" value="1">
+                  <%}%>
+                           </div>
+                        </div>
+                        <%}%>
+                  <!--option 버튼  -->
+                  <div class="demo-inline-spacing">
+                     <button type="button" class="btn btn-primary" id="update_btn">수정</button>
+                     <button type="button" class="btn btn-danger" <%if(projectId==null){%>onclick="history.go(-1)"<%}else{%>onclick="window.close();"<%}%>>취소</button>
+                  </div>
+               </div>
+
+         </form>
+      </div>
+   </div>
+</div>
+
+
+<script type="text/javascript">
+   $(document).ready(function () {
+      var nav = document.getElementById('layout-navbar');
+      var footer = document.getElementById('footer');
+      var projectId = $("#projectId").val();
+      if (projectId != null) {
+         nav.style.display = 'none';
+         footer.style.display = 'none';
+      }
+
+      //ckeditor
+      ClassicEditor
+         .create(document.querySelector('#editor'), {
+            language: 'ko'
+         })
+         .then(newEditor => {
+            editor = newEditor;
+         })
+         .catch(error => {
+            console.error(error);
+         });
+
+      var formObj = $("form[name='udtForm']");
+      // 수정
+      $("#update_btn").on("click", function () {
+         var writTitle = $("#writTitle").val();
+         var content = editor.getData();
+         if (writTitle == "") {
+            alert("제목을 입력하세요.");
+            $("#writTitle").focus();
+            return false;
+         }
+
+         if (content == null) {
+            alert("내용을 입력하세요.");
+            $("#editor").focus();
+            return false;
+         }
+
+         if (confirm("수정하시겠습니까?") == true) {
+            $('input[id=writContent]').attr('value', content);
+            formObj.attr("action", "boardUpdate");
+            formObj.attr("method", "post");
+            formObj.submit();
+            alert("수정되었습니다.");
+         } else {
+            return;
+         }
+      });
+
+      //첨부파일 삭제
+      $("[name=boardFileDelete]").on("click", function () {
+         $('input[name=fileId').val($(this).attr('data-fileId'));
+         $('input[name=fileRoute').val($(this).attr('data-fileRoute'));
+         if (confirm("실제 파일이 삭제됩니다. 정말 삭제하시겠습니까?") == true) {
+            formObj.attr("action", "boardDelete/boardFileDelete");
+            formObj.attr("method", "get");
+            alert("삭제되었습니다.");
+            formObj.submit();
+         } else {
+            return;
+         }
+      });
+   })
+</script>

@@ -1,0 +1,124 @@
+<!-- ckeditor -->
+<script src="../../../../public/build/ckeditor.js"></script>
+<style>
+   .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+      border-color: var(--ck-color-base-border);
+      height: 40%;
+   }
+
+   .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused {
+      height: 400px;
+   }
+
+   .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+      height: 400px;
+   }
+</style>
+
+<script type="text/javascript">
+   $(document).ready(function () {
+      var nav = document.getElementById('layout-navbar');
+      var footer = document.getElementById('footer');
+      var projectId = $("#projectId").val();
+      if (projectId != null) {
+         nav.style.display = 'none';
+         footer.style.display = 'none';
+      }
+
+         //ckeditor
+         ClassicEditor
+         .create(document.querySelector('#editor'), {
+            language: 'ko'
+         })
+         .then(newEditor => {
+            editor = newEditor;
+         })
+         .catch(error => {
+            console.error(error);
+         });
+
+      $("#enroll_btn").click(function () {
+         // const aa = Array.from(editor.ui.componentFactory.names());
+         // console.log(aa);
+         var writTitle = $("#writTitle").val();
+         // var content = $("#content").val();
+         // $('input[name=inputNm]').attr('value',goContent);
+         var content = editor.getData();
+         // console.log(content);
+
+         if (writTitle == "") {
+            alert("제목을 입력하세요.");
+            $("#writTitle").focus();
+            return false;
+         }
+
+         if (content == "") {
+            alert("내용을 입력하세요.");
+            $("#editor").focus();
+            return false;
+         }
+
+         if (confirm("등록하시겠습니까?") == true) {
+            $('input[name=writContent]').attr('value', content);
+            $("#boardwrite").attr("action", "boardInsert");
+            $("#boardwrite").submit();
+         } else {
+            return;
+         }
+      });
+   });
+</script>
+
+<div class="col-xs-6">
+   <!-- HTML5 Inputs -->
+   <div class="card mb-4">
+      <h5 class="card-header"> <%=boardName%> 글 등록</h5>
+      <div class="card-body">
+         <!-- 컨텐츠 -->
+         <form action="" id="boardwrite" method="post" enctype="multipart/form-data" autocomplete="off">
+            <input type="hidden" id="writContent" name="writContent" value="">
+            <input type="hidden" id="boardDivId" name="boardDivId" value="<%=boardDivId%>">
+            <input type="hidden" id="boardName" name="boardName" value="<%=boardName%>">
+            <input type="hidden" id="projectId" name="projectId" value="<%=projectId%>">
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label" for="text-input">제목</label>
+               <div class="col-md-10">
+                  <input class="form-control" id="writTitle" type="text" name="boardTitle" value="">
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label" for="text-input">내용</label>
+               <div class="col-md-10">
+                  <textarea name="boardContent" class="editor" id="editor"></textarea>
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label">첨부파일</label>
+               <div class="col-md-10" style="display: flex; flex-direction: column; gap: 25px; padding-left: 15px">
+                  <input type="file" id="file" name="file">
+                  <input type="file" id="file" name="file" />
+                  <input type="file" id="file" name="file" />
+                  <input type="file" id="file" name="file" />
+                  <input type="file" id="file" name="file" />
+               </div>
+
+            </div>
+            <% if(projectId == null) { %>
+            <div class="mb-3 row" style="margin-top: 30px; margin-bottom: 30px;">
+               <label class="col-md-1 col-form-label" for="text-input">상단고정여부</label>
+               <div class="col-md-10">
+                  <input type="checkbox" style='zoom:3.0;' name="boardFix" value="1">
+               </div>
+            </div>
+            <% } %>
+            <!--option 버튼  -->
+            <div class="demo-inline-spacing">
+               <button type="button" class="btn btn-outline-success" id="enroll_btn">등록</button>
+               <button type="button" class="btn btn-outline-primary" <%if(projectId==null){%>onclick="history.go(-1)"<%}else{%>onclick="window.close();"<%}%>>취소</button>
+            </div>
+
+      </form>
+   </div>
+</div>
+</div>
+

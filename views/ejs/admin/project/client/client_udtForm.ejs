@@ -1,0 +1,74 @@
+<style>
+   .layout-navbar {
+      display: none;
+   }
+
+   .content-footer {
+      display: none;
+   }
+
+   .layout-menu {
+      display: none;
+   }
+</style>
+<div class="card">
+   <div class="table-responsive text-nowrap">
+      <form name="udtForm">
+         <table class="table" style="height:120px">
+            <thead>
+               <tr>
+                  <th>상호</th>
+                  <th>소속</th>
+                  <th>담당자명</th>
+                  <th>직책</th>
+                  <th>연락처</th>
+               </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+               <tr>
+                  <input type="hidden" name="clientId" value="<%=result[0].clientId%>" />
+                  <td><input class="form-control" id="clientComName" name="clientComName"
+                        value="<%=result[0].clientComName%>" /></td>
+                  <td><input class="form-control" id="clientBelong" name="clientBelong"
+                        value="<%=result[0].clientBelong%>" /></td>
+                  <td><input class="form-control" id="clientName" name="clientName" value="<%=result[0].clientName%>" />
+                  </td>
+                  <td><input class="form-control" id="clientPosition" name="clientPosition"
+                        value="<%=result[0].clientPosition%>" /></td>
+                  <td><input class="form-control" id="clientPhone" name="clientPhone" value="<%=clientPhone%>" /></td>
+               </tr>
+            </tbody>
+         </table>
+      </form>
+   </div>
+</div>
+<!--option 버튼  -->
+<div class="demo-inline-spacing" style="float: right;">
+   <button type="button" class="btn btn-primary" id="update_btn">수정</button>
+   <button type="button" class="btn btn-dark" onclick="window.close()">취소</button>
+</div>
+
+<script>
+   //수정하기
+   var formObj = $("form[name='udtForm']");
+   $("#update_btn").on("click", function () {
+      var clientPhone = $("#clientPhone").val();
+      var regPhone2 = /^[0-9]{3}-?([0-9]{3,4})-?([0-9]{4})$/;
+      if (clientPhone != '' && regPhone2.test(clientPhone) != true) {
+         alert('올바른 휴대번호를 입력해주세요.');
+         $("#clientPhone").focus();
+         return false;
+      }
+      formObj.attr("action", "/admin/projectUpdate/clientUpdate");
+      formObj.attr("method", "post");
+      if (confirm("수정하시겠습니까?") == true) {
+         //휴대폰번호 숫자만 넘기기
+         var regNumber = /[^0-9]/g;
+         clientPhone = clientPhone.replace(regNumber, "");
+         $("#clientPhone").val(clientPhone);
+         formObj.submit();
+      } else {
+         return;
+      }
+   });
+</script>

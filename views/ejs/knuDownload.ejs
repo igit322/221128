@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>경북대총여성동창회</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta property="og:description" content="경북대총여성동창회 멘토링 앱 입니다">
+    <meta property="og:image" content="http://resoft.kr/public/images/knuLogo.png">
+</head>
+
+<body>
+<div style="text-align: center;">
+</div>
+</body>
+<script>
+    var varUA = navigator.userAgent.toLowerCase(); //userAgent 값을 받아서 소문자 형태로 불러온다.
+    if (varUA.match('android') != null) { // 안드로이드
+        location.href="https://play.google.com/store/apps/details?id=com.flash21.knu_female_mentoring"
+    } else if (varUA.match("iphone") != null || varUA.match("ipad") != null || varUA.match("ipod") != null || varUA.match("mac os") != null || varUA.match("macintosh") != null || varUA.match("mac os") != null) { // 애플
+       location.href="https://apps.apple.com/kr/app/%EA%B2%BD%EB%B6%81%EB%8C%80-%EC%B4%9D%EC%97%AC%EC%84%B1%EB%8F%99%EC%B0%BD%ED%9A%8C-%EB%A9%98%ED%86%A0%EB%A7%81/id6444036667"
+    } else{ // PC
+       location.href="https://play.google.com/store/apps/details?id=com.flash21.knu_female_mentoring"
+    }
+
+</script>
+
+</html>

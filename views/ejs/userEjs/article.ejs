@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resoft</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/public/images/img1/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/public/css/reset.css">
+    <link rel="stylesheet" href="/public/css/animate.css">
+    <link rel="stylesheet" href="/public/css/magic.css">
+    <link rel="stylesheet" href="/public/css/menu.css">
+    <link rel="stylesheet" href="/public/css/article/article.css">
+    <!-- Noto Sans 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet"> 
+    <!-- wow 애니메이션 js -->
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="/public/js/wow.min.js"></script>
+    <script>new WOW().init();</script>
+    <script src="/public/js/lottie.min.js"></script>
+</head>
+
+<body>
+    <div id="load">
+        <img src="/public/images/img1/loading.gif" alt="loading">
+    </div>
+    <!-- navi bar -->
+    <header id="header">
+        <div class="won">
+        <a class="logo" href="/"><img src="/public/images/img1/logo-Resoft.svg" alt="로고"></a>
+        <div id="gon">
+        <nav>
+            <ul id="main-nav">
+                <li><a class="dpdl" href="/about">회사소개</a>
+                    <ul class="so close paddingpx1">
+                        <li><a class="menu" href="/about">회사소개</a></li>
+                        <li><a href="/about#intro">REsoft소개</a></li>
+                        <li><a href="/about#history">연혁</a></li>
+                        <li><a href="/about#organ">조직도</a></li>
+                        <li><a href="/about#certi">특허&인증</a></li>
+                        <li><a href="/about#direc">오시는 길</a></li>
+                    </ul>
+                </li>
+                <li><a class="dpdl" href="/overview">사업현황</a>
+                    <ul class="so close paddingpx2">
+                        <li><a class="menu" href="/overview">사업현황</a></li>
+                        <li><a href="/overview#content-ecoce">ECOCE</a></li>
+                        <li><a href="/overview#content-moado">moaDo</a></li>
+                        <li><a href="/overview#content-etc">Etc</a></li>
+                    </ul>
+                </li>
+                <li><a class="dpdl" href="/portfolio">포트폴리오</a>
+                    <ul class="so close paddingpx3">
+                        <li><a class="menu" href="/portfolio">포트폴리오</a></li>
+                        <li><a href="/portfolio#">포트폴리오</a></li>
+                    </ul>
+                </li>
+                <li><a class="dpdl dhdl here" href="/newslist">REsoft소식</a>
+                    <ul class="so close paddingpx4">
+                        <li><a class="menu" href="/newslist">REsoft소식</a></li>
+                        <li><a href="/newslist#news-title-wrap">REsoft소식</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>  
+        <div class="so close"></div>
+        <a class="ham"><img src="/public/images/img1/company_N_busines_N_yard-menu.svg" alt="토글" ></a>       
+        </div>
+        </div>
+    </header>   
+    <!-- 헤더배너 -->
+    <div class="top_back" style="width:100%"></div>
+    <div class="top">
+        <p>REsoft소식</p>
+    </div>
+
+    <section class="resoft-news">
+        <p class="yard-news-title">REsoft 소식</p>
+        <p class="yard-news-stitle">NEWS</p>
+        <div class="yard-news-left" id="m-yard-news-left">
+            <a class="list-btn" href="/newslist">
+                <span class="btn-circle list-btn-circle"></span>
+                <span class="btn-text">목록으로</span>
+            </a>
+        </div>
+        <div class="yard-news-right">
+            <h1><%=news[0].newsTitle%></h1>
+            <h4><%=news[0].newsDate%></h4>
+            <div class="yard-news-imgwrap"><img class="yard-news-img" src="<%=news[0].newsImage%>" alt="yard-news-img"></div>
+            <%-news[0].newsContent%>
+            <hr>
+            <div class="btn-wrap">
+                <% if(nextId.length > 0){%>
+                <a class="pre-btn" href="/article?newsId=<%=nextId[0].newsId%>">
+                    <span class="btn-circle pre-btn-circle"></span>
+                    <span class="btn-text">이전글</span>
+                </a>
+                <%}else{%>
+                <a class="pre-btn" href="javascript:alert('이전글이 없습니다.');">
+                    <span class="btn-circle pre-btn-circle"></span>
+                    <span class="btn-text">이전글</span>
+                </a>
+                <%}%>
+                <a class="m-list-btn" href="/newslist"><span class="btn-text list-btn-color">목록으로</span></a>
+
+
+                <% if(beforeId.length > 0){%>
+                <a class="next-btn" href="/article?newsId=<%=beforeId[0].newsId%>">
+                    <span class="btn-text">다음글</span>
+                    <span class="btn-circle next-btn-circle"></span>
+                </a>
+                 <%}else{%>
+                <a class="next-btn" href="javascript:alert('다음글이 없습니다.');">
+                <span class="btn-text">다음글</span>
+                <span class="btn-circle next-btn-circle"></span>
+                </a>
+                 <%}%>
+            </div>
+        </div>
+    </section>
+    <!-- 푸터 -->
+    <%- include('../../partials/footer.ejs') %> 
+<script src="/public/css/article/article.js"></script>
+</body>
+</html>

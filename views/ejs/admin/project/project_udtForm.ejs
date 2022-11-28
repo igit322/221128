@@ -1,0 +1,194 @@
+<style>
+    .layout-navbar {
+        display: none;
+    }
+
+    .content-footer {
+        display: none;
+    }
+
+    textarea {
+        height: 100px;
+        display: block;
+        width: 100%;
+        padding: 0.4375rem 0.875rem;
+        font-size: 0.9375rem;
+        font-weight: 400;
+        line-height: 1.53;
+        color: #697a8d;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #d9dee3;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.375rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .fileButton {
+        height: 34px;
+        margin-left: 20px;
+    }
+</style>
+<div class="card mb-4">
+    <h5 class="card-header">프로젝트 환경 수정</h5>
+    <div class="card-body">
+        <form name="udtForm" enctype="multipart/form-data" method="post">
+            <input type="hidden" id="projectId" name="projectId" value="<%=projectId%>" />
+            <input type="hidden" id="fileRoute" name="fileRoute" value="">
+            <!-- 컨텐츠 -->
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label primary" for="text-input">* 프로젝트명</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="projectName" type="text" name="projectName"
+                        value="<%=result[0].projectName%>" maxlength="45" >
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">발주처</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="projectClient" type="text" name="projectClient"
+                        value="<%=result[0].projectClient%>" maxlength="30" >
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">담당자</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="projectManager" type="text" name="projectManager"
+                        value="<%=result[0].projectManager%>" maxlength="30" >
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">IP</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="projectIp" type="text" name="projectIp"
+                        value="<%=result[0].projectIp%>" maxlength="25" >
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">도메인</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="projectDomain" type="text" name="projectDomain"
+                        value="<%=result[0].projectDomain%>" maxlength="100" >
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">개발환경</label>
+                <div class="col-md-9">
+                    <textarea id="tools" maxlength="1000"><%-result[0].projectTools%></textarea>
+                    <input type="hidden" id="projectTools" name="projectTools" value="" />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">웹서버</label>
+                <div class="col-md-9">
+                    <textarea id="web" maxlength="1000"><%-result[0].projectWeb%></textarea>
+                    <input type="hidden" id="projectWeb" name="projectWeb" value="" />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">DB정보</label>
+                <div class="col-md-9">
+                    <textarea id="db" maxlength="1000"><%-result[0].projectDB%></textarea>
+                    <input type="hidden" id="projectDB" name="projectDB" value="" />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">기타사항</label>
+                <div class="col-md-9">
+                    <textarea id="content" maxlength="1000"><%-result[0].projectContent%></textarea>
+                    <input type="hidden" id="projectContent" name="projectContent" value="" />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">첨부파일</label>
+                <div class="col-md-9">
+                    <% if(result[0].fileRoute != undefined) { %>
+                    <% for(var i = 0; i <  result.length; i++) {%>
+                    <p>
+                        <span><%=result[i].fileOrgName%></span>
+                        <button name="fileDelete" class="btn btn-block btn-outline-danger fileButton" type="button"
+                            data-route="<%= result[i].fileRoute %>">삭제</button></p>
+                    <% } %>
+                    <% if(result.length < 10) { %>
+                    <% for(var i = 0; i < 10- result.length; i++) {%>
+                    <input class="form-control" type="file" id="file" name="file" style="margin-bottom:7px" />
+                    <% } %>
+                    <% } %>
+                    <% }else{ %>
+                    <div style="display: flex; flex-direction: column; gap: 25px;">
+                        <input class="form-control" type="file" id="file" name="file">
+                        <input class="form-control" type="file" id="file" name="file" />
+                        <input class="form-control" type="file" id="file" name="file" />
+                        <input class="form-control" type="file" id="file" name="file" />
+                        <input class="form-control" type="file" id="file" name="file" />
+                        <input class="form-control" type="file" id="file" name="file" />
+                        <input class="form-control" type="file" id="file" name="file" />
+                        <input class="form-control" type="file" id="file" name="file" />
+                        <input class="form-control" type="file" id="file" name="file" />
+                        <input class="form-control" type="file" id="file" name="file" />
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </form>
+        <!--option 버튼  -->
+        <div class="demo-inline-spacing" style="float: right;">
+            <button type="button" class="btn btn-primary" id="update_btn">수정</button>
+            <button type="button" class="btn btn-dark" onclick="window.close()">취소</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    // window.onbeforeunload = function (e) {
+    //     e = e || window.event;
+    //     // For IE<8 and Firefox prior to version 4
+    //     if (e) {
+    //         e.returnValue = '페이지를 닫습니다.';
+    //     }
+    //     // For Chrome, Safari, IE8+ and Opera 12+
+    //     return '페이지를 닫습니다.';
+    // };
+
+    //수정하기
+    var formObj = $("form[name='udtForm']");
+    $("#update_btn").on("click", function () {
+        var projectName = $("#projectName").val();
+        if (projectName == '') {
+            alert("프로젝트명을 입력해주세요.");
+            $("#projectName").focus();
+            return false;
+        }
+        var tools = $('#tools').val();
+        var web = $('#web').val();
+        var db = $('#db').val();
+        var content = $('#content').val();
+        $('#projectTools').val(tools);
+        $('#projectWeb').val(web);
+        $('#projectDB').val(db);
+        $('#projectContent').val(content);
+        formObj.attr("action", "/admin/projectUpdate/update");
+        // formObj.attr("method", "post");
+        if (confirm("수정하시겠습니까?") == true) {
+            formObj.submit();
+        } else {
+            return;
+        }
+    });
+
+    //첨부파일 삭제
+    $("[name=fileDelete]").on("click", function () {
+        $('input[name=fileRoute').val($(this).attr('data-route'));
+        if (confirm("실제 파일이 삭제됩니다. 정말 삭제하시겠습니까?") == true) {
+            formObj.attr("action", "/admin/projectDelete/img");
+            formObj.attr("method", "get");
+            alert("삭제되었습니다.");
+            formObj.submit();
+        } else {
+            return;
+        }
+    });
+</script>

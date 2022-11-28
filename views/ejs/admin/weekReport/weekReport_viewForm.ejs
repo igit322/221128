@@ -1,0 +1,137 @@
+<style>
+    .card{
+        color: black;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+    .row {
+        --bs-gutter-x: auto;
+    }
+    .card::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera*/
+    }
+    #report {
+        white-space: pre-wrap;
+    }
+    .table-responsive {
+        overflow-x: unset;
+    }
+    #divider-text{
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+    #reportDate{
+        font-size: 1.5rem;
+        text-decoration: underline;
+    }
+    #reportLabel{
+        font-size: 2.0rem;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    #report{
+        font-size: 1.4rem;
+    }
+    #reportborder{
+        border: 2px solid black;
+    }
+    #note{
+        font-size:1.3rem;
+        color: blue;
+    }
+</style>
+
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">주간보고서 /</span> 주간업무일지</h4>
+<div style="background-color: #ededfa; padding: 30;">
+
+    <!-- Basic Bootstrap Table -->
+    <div class="card">
+        <!-- <h5 class="card-header">일반회원관리</h5> -->
+        <div class="table-responsive text-nowrap">
+            <form id="userForm" name="userForm" action="" method="">
+                <input type="hidden" id="weekReportId" name="weekReportId" value="" />
+                <div class="mb-3 row">
+                    <div class="card-body">
+                        <div class="divider">
+                            <div class="divider-text" id="divider-text"> 주간업무보고 </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-md-9" ></div>
+                    <div class="col-md-2" id="reportDate">
+                       날짜 : <%=result[0].reportDatefmt%>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-md-9" ></div>
+                    <div class="col-md-2" id="reportDate">
+                       작성자 : <%=result[0].adminNick%>
+                    </div>
+                </div>
+                <div class="mb-3 row" id="reportborder">
+                    <div class="col-md-12" id="reportLabel">&lt; 업무 내용 &gt;</div>
+                    <div class="col-md-2"></div>
+                    <ul class="col-md-8" id="report"> 
+                        <% for(var i = 0; i < reports.length; i ++){ %>
+                            <li><%=reports[i]%></li>
+                            <%}%>
+                    </ul>
+                </div>
+                <div class="mb-3 row" id="reportborder">
+                    <div class="col-md-12" id="reportLabel">&lt; 다음주 업무 계획 &gt;</div>
+                    <div class="col-md-2"></div>
+                    <ul class="col-md-8" id="report">
+                        <% for(var i = 0; i < nextPlans.length; i ++){ %>
+                            <li><%=nextPlans[i]%></li>
+                            <%}%>
+                    </ul>
+                </div>
+                <div class="mb-3 row" id="reportborder">
+                    <div class="col-md-12" id="reportLabel">&lt; 비고 &gt;</div>
+                    <div class="col-md-2"></div>
+                        <p class="col-md-8" id="note"><%=result[0].note%></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/ Basic Bootstrap Table -->
+    <div>
+        <div class="demo-inline-spacing">
+            <form>
+                <% if(sessionId == result[0].adminNick){%>
+                <button type="button" class="btn btn-primary" id="enrollAction"
+                    onclick="weekReportUpdate()">수정</button>
+                <button type="button" class="btn btn-danger" id="delete_btn"
+                    onclick="weekReportDelete()">삭제</button>
+                <%}%>
+                <button type="button" class="btn btn-primary" id="list"
+                    onclick="location.href='/admin/weekReport?searchType1=<%=searchType1%>&searchText=<%=searchText%>&page=<%=page%>'">목록</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    //수정
+    function weekReportUpdate(){
+        if (confirm("수정하시겠습니까?") == true) {
+              location.href='/admin/weekReportUpdate?weekReportId=<%=result[0].weekReportId%>&searchType1=<%=searchType1%>&searchText=<%=searchText%>&page=<%=page%>'
+            } else {
+                return;
+            }
+    }
+    //삭제
+    function weekReportDelete(){
+        if (confirm("삭제하시겠습니까?") == true) {
+            location.href='/admin/weekReportDelete?weekReportId=<%=result[0].weekReportId%>'
+        } else {
+            return;
+        }
+       
+    }
+</script>

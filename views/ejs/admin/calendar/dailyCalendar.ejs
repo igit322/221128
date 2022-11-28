@@ -1,0 +1,574 @@
+<!-- jquery CDN -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<!-- fullcalendar CDN -->
+<!-- <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' /> -->
+<!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script> -->
+<!-- fullcalendar 언어 CDN -->
+<!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script> -->
+
+<link href="/public/js/fullcalendar-5.0.1/lib/main.css" rel="stylesheet" />
+<script src="/public/js/fullcalendar-5.0.1/lib/main.js"></script>
+<script src="/public/js/fullcalendar-5.0.1/lib/locales/ko.js"></script>
+<!--moment-->
+<script class="cssdesk" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.0/moment.min.js"
+    type="text/javascript"></script>
+
+<style>
+    .modal-footer-writ {
+        display: flex;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 1.25rem;
+        border-top: 0px solid #d9dee3;
+        border-bottom-right-radius: calc(0.5rem - 0px);
+        border-bottom-left-radius: calc(0.5rem - 0px);
+
+    }
+    .modal-footer-writ>* {
+        margin: 0.25rem;
+    }
+
+    #calendar {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+
+    #form-div {
+        background-color: '';
+        padding: 5px 5px 5px;
+        width: 100%;
+        margin-top: 5px;
+
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px;
+    }
+
+    .feedback-input {
+        color: #3c3c3c;
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 11px;
+        border-radius: 0;
+        line-height: 22px;
+        background-color: #ffffff;
+        padding: 3px 3px 3px 6px;
+        margin-bottom: 10px;
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 3px solid rgba(0, 0, 0, 0);
+    }
+
+    .feedback-input:focus {
+        background: #fff;
+        box-shadow: 0;
+        /*border: 3px solid #3498db;*/
+        border-color: #3498db;
+        color: #3498db;
+        outline: none;
+        /*padding: 13px 13px 13px 54px;*/
+    }
+
+    .focused {
+        color: #30aed6;
+        border: #30aed6 solid 3px;
+    }
+
+    /* Icons */
+    #name {
+        background-image: url(http://rexkirby.com/kirbyandson/images/name.svg);
+        background-size: 30px 30px;
+        background-position: 11px 8px;
+        background-repeat: no-repeat;
+    }
+
+    #email {
+        background-image: url(http://rexkirby.com/kirbyandson/images/email.svg);
+        background-size: 30px 30px;
+        background-position: 11px 8px;
+        background-repeat: no-repeat;
+    }
+
+    #comment {
+        background-image: url(http://rexkirby.com/kirbyandson/images/comment.svg);
+        background-size: 30px 30px;
+        background-position: 11px 8px;
+        background-repeat: no-repeat;
+    }
+
+    textarea {
+        width: 100%;
+        height: 150px;
+        line-height: 150%;
+        resize: vertical;
+    }
+
+    input:hover,
+    textarea:hover,
+    input:focus,
+    textarea:focus {
+        background-color: white;
+    }
+
+    #button-blue {
+        font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+        float: left;
+        /* 플롯 중요(::after 가상요소 이용)*/
+        width: 100%;
+        border: #fbfbfb solid 4px;
+        cursor: pointer;
+        background-color: #3498db;
+        color: white;
+        font-size: 24px;
+        padding-top: 22px;
+        padding-bottom: 22px;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+        margin-top: -4px;
+        font-weight: 700;
+    }
+
+    #button-blue:hover {
+        background-color: rgba(0, 0, 0, 0);
+        color: #0493bd;
+    }
+
+    .ease {
+        width: 0;
+        height: 74px;
+        background-color: #fbfbfb;
+        -webkit-transition: .3s ease;
+        -moz-transition: .3s ease;
+        -o-transition: .3s ease;
+        -ms-transition: .3s ease;
+        transition: .3s ease;
+    }
+
+    .submit:hover .ease {
+        width: 100%;
+        background-color: #5ebe7f;
+    }
+
+    .colorBox {
+        margin: 14px 0px 0px 144px;
+        width: 360px;
+        height: 45px;
+        font-size: 17px;
+        font-weight: 700;
+        border: 1px solid rgba(170, 162, 173, 0.295);
+    }
+
+    .dot1 {
+        height: 25px;
+        width: 25px;
+        background-color: #f07e88;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 10px 7px 10px 17px;
+    }
+
+    .dot2 {
+        height: 25px;
+        width: 25px;
+        background-color: #a994e3;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 10px 7px 10px 17px;
+    }
+
+    .dot3 {
+        height: 25px;
+        width: 25px;
+        background-color: #fff100;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 10px 7px 10px 17px;
+    }
+
+    .dot4 {
+        height: 25px;
+        width: 25px;
+        background-color: #52acea;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 10px 7px 10px 17px;
+    }
+
+    .child {
+        line-height: 30px;
+        display: flex;
+        align-items: center;
+    }
+
+    textarea {
+        height: 280px;
+        display: block;
+        width: 100%;
+        padding: 0.4375rem 0.875rem;
+        font-size: 0.9375rem;
+        font-weight: 400;
+        line-height: 1.53;
+        color: #697a8d;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #d9dee3;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.375rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+</style>
+
+<script type="text/javascript">
+    var eventColor = '#fbdeea'; //빨
+    var workColor = '#fcdfd8'; //주
+    var annualColor = '#feefdb'; //노
+    var approvalColor = '#e1f0d8'; //초
+    var otherColor = '#c7effc'; //파
+    var rejectColor = '#eae0ee'; //보
+    var adminColor = '#d6dce5'; //검
+    var textBlack = '#000'; //글씨검은색
+
+    //모달창 새로고침
+    $('.modal').on('hidden.bs.modal', function (e) {
+        $(this).find('form')[0].reset();
+    });
+
+    //쿼리스트링값 가져오기
+    function getUrlParams() {
+        var params = {};
+        window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
+            params[key] = value;
+        });
+        return params;
+    }
+    var param = getUrlParams();
+    const calendarDivId = param.calendarDivId;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var eventselect = [];
+        var array = {};
+        $.ajax({
+            type: 'get',
+            url: '/admin/calendarSelect',
+            async: false,
+            data: {
+                calendarDivId: calendarDivId
+            },
+            dataType: 'json',
+            success: function (data) {
+                // console.log(data.results)
+                // eventselect = data.results
+                for (i = 0; i < data.results.length; i++) {
+                    array = {};
+                    array["title"] = data.results[i].writer;
+                    array["start"] = data.results[i].start;
+                    array["end"] = data.results[i].end;
+                    array["calendarId"] = data.results[i].calendarId;
+                    array["writer"] = data.results[i].writer;
+                    eventselect.push(array);
+                    // eventselect.push({
+                    // title: data.results[i].writer,
+                    // start: data.results[i].start,
+                    // end: data.results[i].end,
+                    // calendarId: data.results[i].calendarId
+                    // })
+                }
+            },
+            error: function (e) {
+                console.log('error:' + e.status);
+            }
+        });
+        var events = eventselect;
+        var calendarEl = document.getElementById('calendar');
+        // console.log(events)
+        for (i = 0; i < events.length; i++) { //색깔 지정해주기
+            var origin = events[i];
+            var color;
+            var allDay = {
+                allDay: true
+            }; //하루 일정도 길게 채우기
+            var textBlack = {
+                textColor: "#000000"
+            };
+            if (events[i].writer == '오유나') {
+                color = {
+                    color: eventColor
+                };
+                Object.assign(origin, color, allDay, textBlack);
+            } else if (events[i].writer == '권가영') {
+                color = {
+                    color: workColor
+                };
+                Object.assign(origin, color, allDay, textBlack);
+            } else if (events[i].writer == '김진성') {
+                color = {
+                    color: annualColor
+                };
+                Object.assign(origin, color, allDay, textBlack);
+                // Object.assign(origin, textBlack);
+            } else if (events[i].writer == '박용진') {
+                color = {
+                    color: approvalColor
+                };
+                Object.assign(origin, color, allDay, textBlack);
+            } else if (events[i].writer == '서보경') {
+                color = {
+                    color: otherColor
+                };
+                Object.assign(origin, color, allDay, textBlack);
+            } else if (events[i].writer == '정의영') {
+                color = {
+                    color: rejectColor
+                };
+                Object.assign(origin, color, allDay, textBlack);
+            } else if (events[i].writer == 'admin') {
+                color = {
+                    color: adminColor
+                };
+                Object.assign(origin, color, allDay, textBlack);
+            }
+        }
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            timeZone: 'UTC',
+            initialView: 'dayGridMonth', // 홈페이지에서 다른 형태의 view를 확인할  수 있다.
+            events: events,
+            headerToolbar: {
+                end: 'today prevYear,prev,next,nextYear' // headerToolbar에 버튼을 추가
+            },
+            dateClick: function (info) { //날짜 클릭하면 일정등록
+                // alert('a day has been clicked!' + info.dateStr);
+                $("#dailyCalendarModal").modal("show");
+                //해당 날짜
+                $("#calendar_start_date").attr('value', info.dateStr);
+                $("#calendar_end_date").attr('value', info.dateStr);
+                // console.log(info.dateStr)
+                $("#addDaily").on("click", function () { // modal의 추가 버튼 클릭 시
+                    var content = $("#dailyContent").val();
+                    var start_date = $("#calendar_start_date").val();
+                    var end_date = $("#calendar_end_date").val();
+                    // console.log(start_date)
+                    //내용 입력 여부 확인
+                    if (content == null || content == "") {
+                        alert("내용을 입력하세요.");
+                    } else { // 정상적인 입력 시
+                        var obj = {
+                            "title": content,
+                            "start": start_date,
+                            "end": end_date,
+                            "subDiv": "일일업무일지",
+                            "calendarDivId": 2
+                        } //전송할 객체 생성
+
+                        // console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
+                        $.ajax({
+                            type: 'post',
+                            url: '/admin/calendarInsert',
+                            async: false,
+                            data: {
+                                obj: obj
+                            },
+                            dataType: 'json',
+                            success: function () {
+                                $("#dailyCalendarModal").modal("hide");
+                                alert("업무일지 등록이 완료되었습니다.");
+                                location.reload();
+                            },
+                            error: function (e) {
+                                console.log('error:' + e.status);
+                            }
+                        });
+                    }
+                });
+            },
+            eventClick: function (arg) { // 이벤트 클릭 시
+                // console.log(arg)
+                var id = arg.event._def.extendedProps.calendarId //해당 이벤트 아이디 가져오기
+                $.ajax({
+                    type: 'get',
+                    url: '/admin/calendarSelectOne',
+                    data: {
+                        calendarId: id
+                    },
+                    dataType: 'json',
+                    success: function (info) {
+                        var str = "";
+                        $(".modal-footer").empty();
+                        if (info.adminNick == info.results[0].writer) {
+                            str +=
+                                '<button type="button" class="btn btn-warning" id="udtDailyCalendar">수정</button>';
+                            str +=
+                                '<button type="button" class="btn btn-danger" id="deleteDailyCalendar">삭제</button>';
+                            str +=
+                                '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="sprintSettingModalClose">취소</button>';
+                        } else {
+                            str +=
+                                '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="sprintSettingModalClose">취소</button>';
+                        }
+                        $(".modal-footer").append(str);
+                        // console.log(info.results[0].writer)
+                        $("#udtDailyCalendarModal").modal("show");
+                        $("#udtcalendar_content").val(info.results[0].title)
+                        $("#udtcalendar_start_date").attr('value', info.results[0]
+                            .start);
+                        $("#udtcalendar_end_date").attr('value', info.results[0].end);
+
+                        $("#udtDailyCalendar").on("click",
+                            function () { // modal의 수정 버튼 클릭 시
+                                var content = $("#udtcalendar_content").val();
+                                var start_date = $("#udtcalendar_start_date").val();
+                                var end_date = $("#udtcalendar_end_date").val();
+                                //내용 입력 여부 확인
+                                if (content == null || content == "") {
+                                    alert("내용을 입력하세요.");
+                                } else { // 정상적인 입력 시
+                                    if (confirm("업무일지를 수정하시겠습니까?") == true) {
+                                        var obj = {
+                                            "calendarId": id,
+                                            "title": content,
+                                            "start": start_date,
+                                            "end": end_date,
+                                            "subDiv": "일일업무일지",
+                                            "calendarDivId": 2
+                                        } //전송할 객체 생성
+
+                                        // console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
+                                        $.ajax({
+                                            type: 'post',
+                                            url: '/admin/calendarUpdate',
+                                            async: false,
+                                            data: {
+                                                obj: obj
+                                            },
+                                            dataType: 'json',
+                                            success: function (data) {
+                                                $("#udtDailyCalendarModal")
+                                                    .modal("hide");
+                                                alert(
+                                                    "업무일지 수정이 완료되었습니다."
+                                                );
+                                                location.reload();
+                                            },
+                                            error: function (e) {
+                                                console.log('error:' + e
+                                                    .status);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        $("#deleteDailyCalendar").on("click",
+                            function () { // modal의 삭제 버튼 클릭 시
+                                // console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
+                                if (confirm("업무일지를 삭제하시겠습니까?") == true) {
+                                    $.ajax({
+                                        type: 'get',
+                                        url: '/admin/calendarDelete',
+                                        async: false,
+                                        data: {
+                                            calendarId: id
+                                        },
+                                        dataType: 'json',
+                                        success: function (data) {
+                                            $("#udtDailyCalendarModal")
+                                                .modal("hide");
+                                            alert("일정이 삭제되었습니다.");
+                                            location.reload();
+                                        },
+                                        error: function (e) {
+                                            console.log('error:' + e
+                                                .status);
+                                        }
+                                    });
+                                }
+                            });
+                    },
+                    error: function (e) {
+                        console.log('error:' + e.status);
+                    }
+                });
+
+            },
+            editable: true, // false로 변경 시 draggable 작동 x 
+            displayEventTime: false, // 시간 표시 x
+            selectable: true //드래그 해서 여러 날짜 선택
+        });
+        calendar.render();
+    });
+</script>
+
+
+<div id="calendarBox">
+    <div id="calendar"> </div>
+</div>
+</div>
+
+<!-- 업무일지 등록 모달 -->
+<div class="modal fade" id="dailyCalendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">일일업무일지를 입력해주세요 :)</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form>
+                <input type="hidden" id="calendar_start_date" value="">
+                <input type="hidden" id="calendar_end_date" value="">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="taskId" class="col-form-label">보고서 내용</label>
+                        <textarea maxlength="500" id="dailyContent" placeholder="500자까지 입력 가능합니다."></textarea>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer-writ">
+                <button type="button" class="btn btn-warning" id="addDaily">추가</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    id="sprintSettingModalClose">취소</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 업무일지 수정 모달 -->
+<div class="modal fade" id="udtDailyCalendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">일일업무일지를 입력해주세요 :)</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form>
+                <input type="hidden" id="udtcalendar_start_date" value="">
+                <input type="hidden" id="udtcalendar_end_date" value="">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="taskId" class="col-form-label">보고서 내용</label>
+                        <textarea maxlength="500" id="udtcalendar_content" placeholder="500자까지 입력 가능합니다."></textarea>
+                    </div>
+            </form>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-warning" id="udtDailyCalendar">수정</button>
+                <button type="button" class="btn btn-danger" id="deleteDailyCalendar">삭제</button> -->
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    id="sprintSettingModalClose">취소</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- </div> -->

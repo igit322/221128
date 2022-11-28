@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="/public/images/resoft.png"/>
+    <title>Resoft</title>
+	<!-- favicon -->
+    <link rel="shortcut icon" href="/public/images/img1/favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="/public/css/reset.css">
+    <link rel="stylesheet" href="/public/css/animate.css">
+    <link rel="stylesheet" href="/public/css/magic.css">
+
+    <link rel="stylesheet" href="/public/css/Main/main.css">
+	<!-- font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+	<!-- jquery -->
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+	<!-- js -->
+    <script src="/public/css/Main/main.js"></script>
+    <script src="/public/js/wow.min.js"></script>
+    <script>new WOW().init();</script>
+	<script src="/public/js/lottie.min.js"></script>
+    <!-- 슬릭 슬라이더 -->
+    <link rel="stylesheet" type="text/css" href="/public/css/slick.css">
+    <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/af2a9fd141.js" crossorigin="anonymous"></script>
+    <!-- 재생circle -->
+    <link rel="stylesheet" href="/public/css/play/play.css">
+</head>
+<body>
+	<!-- top버튼 -->
+    <%- include('../../partials/top.ejs') %>
+    <header id="header">
+        <div class="won">
+        <a class="logo" href="/"><img src="/public/images/img1/logo-Resoft-white.png" alt="로고"></a>
+            <div id="gon">
+                <nav>
+                    <ul id="main-nav">
+                        <li><a class="dpdl" href="/about">회사소개</a>
+                            <ul class="so close paddingpx1">
+                                <li><a class="menu" href="/about">회사소개</a></li>
+                                <li><a href="/about#intro">REsoft소개</a></li>
+                                <li><a href="/about#history">연혁</a></li>
+                                <li><a href="/about#organ">조직도</a></li>
+                                <li><a href="/about#certi">특허&인증</a></li>
+                                <li><a href="/about#direc">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dpdl" href="/overview">사업현황</a>
+                            <ul class="so close paddingpx2">
+                                <li><a class="menu" href="/overview">사업현황</a></li>
+                                <li><a href="/overview#content-ecoce">ECOCE</a></li>
+                                <li><a href="/overview#content-moado">moaDo</a></li>
+                                <li><a href="/overview#content-etc">Etc</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dpdl" href="/portfolio">포트폴리오</a>
+                            <ul class="so close paddingpx3">
+                                <li><a class="menu" href="/portfolio">포트폴리오</a></li>
+                                <li><a href="/portfolio#">포트폴리오</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dpdl" href="/newslist">REsoft소식</a>  
+                        <ul class="so close paddingpx4">
+                            <li><a class="menu" href="/newslist">REsoft소식</a></li>
+                            <li><a href="/newslist#news-title-wrap">REsoft소식</a></li>
+                        </ul>
+                        </li>
+                    </ul>
+                </nav>  
+                <div class="so close"></div>
+                <a class="ham"><img src="/public/images/img1/icon-menu.svg" alt="토글" ></a>  
+            </div>
+        </div>
+        <div id="load">
+            <img src="/public/images/img1/loading.gif" alt="loading">
+        </div>
+    </header>    
+    <!-- 헤더 -->
+    <header class="main-header">
+    <div class="slick-header-wrap">
+        <div class="head-box">
+            <div class="head-cont">
+                <img src="/public/images/img1/main-header3.jpg" alt="헤더1">
+            </div>
+        </div>
+        <div class="head-box">
+            <div class="head-cont">
+                <img src="/public/images/img1/main-header2.jpg" alt="헤더2">
+            </div>
+        </div>
+        <div class="head-box">
+            <div class="head-cont">
+                <img src="/public/images/img1/main-header1.jpg" alt="헤더3">
+            </div>
+        </div>
+    </div>
+    <div class="all-margin">
+    <div class="header-wrap">
+        <div class="header-text-wrap">
+            <h1>Evolution<br>With New Software</h1>
+            <p>Mobile APP(Android/iOS) Development, AI Bigdata Analysis, MetaVerse, Responsive WEBsite, Brand Design Launch, ICT Consulting</p>
+        </div>
+            <div class="slick-button-wrap">
+                <img id="prev-arrow" src="/public/images/img1/icon-left-arrow.svg" alt="">
+                <div>
+                    <div class="pro_wrap">
+                        <div class="circle_progress">
+                            <div class="left">
+                                <div class="bar"></div>
+                            </div>
+                            <div class="right">
+                                <div class="bar"></div>
+                            </div>
+                            <div class="value">
+                                <!-- <button type="button" class="btn_pause">paused</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="stopNplay">
+                    <img id="stop-btn" src="/public/images/img1/icon-pause.svg" alt="">
+                    <img id="play-btn" src="/public/images/img1/icon-play.svg" alt="">
+                </div>    
+                    <img id="next-arrow" src="/public/images/img1/icon-right-arrow.svg" alt="">
+            </div>
+    </div>
+    </div>
+    </header>
+    <!-- 새로운 소식 섹션 -->   
+    <div class="all-margin">
+    <section class="main-news-container wow fadeInUp" data-wow-delay="0.5s">
+        <h2 class="main-title">리소프트의 새로운 소식</h2>
+        <p class="sub-title">RESOFT NEWS</p>
+        <div class="news-wrap">
+
+            <% for(var i=0; i < news.length; i++){%>
+            <div class="news-contents wow fadeInUp" data-wow-delay="0.<%=i+6%>s"><a href="/article?newsId=<%=news[i].newsId%>">
+                <div class="news-img-wrap"><img class="news-img" src="<%=news[i].newsThumbnail%>">
+                </div>
+                <p class="news-text"><%=news[i].newsTitle%></p>
+                <p class="news-date"><%=news[i].newsDateFmt%></p>
+            </a></div>
+            <%}%>
+        </div>
+    </section>
+    </div>
+    <!-- 프로젝트 섹션 -->
+    <section class="main-project-container wow fadeInUp" data-wow-delay="0.5s">
+    <div class="all-margin">
+    <div class="project">
+        <div class="project-wrap">
+            <div class="project-left-wrap">
+                <div class="project-img1">
+                    <a href="javascript:void(0);">
+                    <img class="ecoce" src="/public/images/img1/main-ecoce2.png" alt="">
+                    <div class="text-show"><h3>에코스 ECOCE (ECO-Clean Earth)</h3><p>국내 최초</p><p>탄소 중립 실천인증 플랫폼</p></div>
+                    </a>
+                </div>
+                <div  class="project-img1">
+                    <a href="javascript:void(0);">
+                    <img class="moado" src="/public/images/img1/main_N_business-moaDo.png" alt="">
+                    <div class="text-show"><h3>모아두 (moaDo)</h3><p>내 손 안의 모바일 회원수첩</p></div>
+                    </a>
+                </div>
+            </div>
+            <div class="project-right-wrap">
+                <div class="project-title-wrap">
+                    <h2 class="main-title">프로젝트</h2>
+                    <p class="sub-title">RESOFT PROJECT</p>
+                    <p class="sub-text">쾌적한 서비스 제공을 위해 사용자 입장에서<br>생각하고 항상 새로운 도전을 시도합니다.</p>
+                </div>
+                <div class="project-img2">
+                    <!-- code -->
+                    <lottie-player class="media1440" src="/public/images/img1/lf20_pwohahvd.json" background="transparent" speed="1" style="width: 680px; height: 680px;" loop autoplay></lottie-player>
+                    <lottie-player class="media1280" src="/public/images/img1/lf20_pwohahvd.json" background="transparent" speed="1" style="width: 680px; height: 591px;" loop autoplay></lottie-player>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+    <!-- 서비스 섹션 -->
+    <section class="main-service-container wow fadeInUp" data-wow-delay="0.5s">
+    <div class="all-margin">
+    <div class="service">
+        <div class="service-left-wrap">
+            <div class="service-title-wrap">
+                <h2 class="main-title">서비스</h2>
+                <p class="sub-title">SERVICE</p>
+                <p class="sub-text">다양한 기술플랫폼을 제공하여 가능성을 열어주고<br>의미있는 성공으로 인도하는 서비스를 제공합니다.</p>
+            </div>
+            <div class="service-img1">
+                <!-- code -->
+                <lottie-player class="media1440" src="https://assets8.lottiefiles.com/packages/lf20_q5qvqtnr.json" background="transparent" speed="1" style="width: 680px; height: 680px;" loop autoplay></lottie-player>
+                <lottie-player class="media1280" src="https://assets8.lottiefiles.com/packages/lf20_q5qvqtnr.json" background="transparent" speed="1" style="width: 534px; height: 534px;" loop autoplay></lottie-player>
+            </div>
+        </div>
+        <div class="service-right-wrap">
+            <div class="service-img-wrap1">
+                <div class="APP service-card wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="card-show"><h3>앱(APP) 개발</h3><p>ANDROID/IOS</p></div>
+                    <div class="card-hide"><p>Android 앱 개발</p><p>ios 앱 개발</p><p>플랫폼 기획 및 설계</p></div>
+                </div>
+                <div class="AI service-card wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="card-show "><h3>AI 기반 기술개발</h3><p>AI BIGDATA</p></div>
+                    <div class="card-hide"><p>AI 대화형 챗봇</p><p>자동 객체인식 검출기</p><p>딥러닝 학습 모델</p></div>
+                </div>
+            </div>
+            <div class="service-img-wrap2">
+                <div class="WEB service-card wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="card-show "><h3>웹(WEB) 구축</h3><p>RESPONSIVE WEB</p></div>
+                    <div class="card-hide"><p>반응형 홈페이지 구축</p><p>데이터베이스 구축</p><p>빅데이터 구축</p></div>
+                </div>
+                <div class="XR service-card wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="card-show "><h3>XR 콘텐츠 구현</h3><p>META</p></div>
+                    <div class="card-hide"><p>실감형 플랫폼 구축</p><p>가상현실 콘텐츠 제작</p><p>게임콘텐츠 제작</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+    <!-- 레퍼런스 -->
+    <section class="main-reference-container wow fadeInUp" data-wow-delay="0.5s">
+    <div class="all-margin">
+    <div class="reference">
+        <h2 class="main-title">레퍼런스</h2>
+        <p class="sub-title">REFERENCE</p>
+        <div class="ref-logo-wrap">
+
+                <% for(i=0; i < partners.length; i++){ %>
+                    
+                <div class="ref-logo"><img src="<%=partners[i].partnerImg%>" alt="<%=partners[i].partnersName%>"></div>
+
+                <% } %>
+
+        </div>
+    </div>
+    </div>
+    </section>
+    <!-- 푸터 -->
+    <%- include('../../partials/footer.ejs') %>
+    </body>
+</html>

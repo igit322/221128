@@ -1,0 +1,137 @@
+<style>
+    .layout-navbar {
+        display: none;
+    }
+
+    .content-footer {
+        display: none;
+    }
+
+    textarea {
+        height: 100px;
+        display: block;
+        width: 100%;
+        padding: 0.4375rem 0.875rem;
+        font-size: 0.9375rem;
+        font-weight: 400;
+        line-height: 1.53;
+        color: #697a8d;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #d9dee3;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.375rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .fileButton {
+        height: 34px;
+        margin-left: 20px;
+    }
+</style>
+<div class="card mb-4">
+    <h5 class="card-header">히스토리 수정</h5>
+    <div class="card-body">
+        <form name="udtForm" method="post">
+            <input type="hidden" id="historyId" name="historyId" value="<%=result[0].historyId%>" />
+            <!-- 컨텐츠 -->
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">진행상태</label>
+                <div class="col-md-9">
+                        <select name="historyStatus" class="dropdown">
+                            <option value="대기중" <%if(result[0].historyStatus=="대기중"){%> selected="selected" <%}%>>대기중</option>
+                            <option value="처리중" <%if(result[0].historyStatus=="처리중"){%> selected="selected" <%}%>>처리중</option>
+                            <option value="처리완료" <%if(result[0].historyStatus=="처리완료"){%> selected="selected" <%}%>>처리완료</option>
+                            <option value="보류" <%if(result[0].historyStatus=="보류"){%> selected="selected" <%}%>>보류</option>
+                        </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">요청일시</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="historyReqDate" type="datetime-local" name="historyReqDate"
+                        value="<%=result[0].historyReqDateFmt%>" >
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">요청자</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="historyRequester" type="text" name="historyRequester"
+                        value="<%=result[0].historyRequester%>" maxlength="10" >
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">요청제목</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="historyTitle" type="text" name="historyTitle"
+                        value="<%=result[0].historyTitle%>" maxlength="30" >
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">요청내용</label>
+                <div class="col-md-9">
+                    <textarea id="content1" maxlength="300"><%-result[0].historyReqContent%></textarea>
+                    <input type="hidden" id="historyReqContent" name="historyReqContent" value="" />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">작업자</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="historyManager" type="text" name="historyManager"
+                        value="<%=result[0].historyManager%>" maxlength="10" >
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">처리일시</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="historyDoneDate" type="datetime-local" name="historyDoneDate"
+                        value="<%=result[0].historyDoneDateFmt%>" >
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label" for="text-input">처리내용</label>
+                <div class="col-md-9">
+                    <textarea id="content2" maxlength="300"><%-result[0].historyDoneContent%></textarea>
+                    <input type="hidden" id="historyDoneContent" name="historyDoneContent" value="" />
+                </div>
+            </div>
+           
+        </form>
+        <!--option 버튼  -->
+        <div class="demo-inline-spacing" style="float: right;">
+            <button type="button" class="btn btn-primary" id="update_btn">수정</button>
+            <button type="button" class="btn btn-dark" onclick="window.close()">취소</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    // window.onbeforeunload = function (e) {
+    //     e = e || window.event;
+    //     // For IE<8 and Firefox prior to version 4
+    //     if (e) {
+    //         e.returnValue = '페이지를 닫습니다.';
+    //     }
+    //     // For Chrome, Safari, IE8+ and Opera 12+
+    //     return '페이지를 닫습니다.';
+    // };
+
+    //수정하기
+    var formObj = $("form[name='udtForm']");
+    $("#update_btn").on("click", function () {
+        var content1 = $('#content1').val();
+        var content2 = $('#content2').val();
+        $('#historyReqContent').val(content1);
+        $('#historyDoneContent').val(content2);
+        formObj.attr("action", "/admin/projectUpdate/historyUpdate");
+        // formObj.attr("method", "post");
+        if (confirm("수정하시겠습니까?") == true) {
+            formObj.submit();
+        } else {
+            return;
+        }
+    });
+</script>

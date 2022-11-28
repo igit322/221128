@@ -1,0 +1,192 @@
+<h4>자격증 관리</h4>
+<div style="background-color: #ededfa; padding: 30;">
+    <form name="searchForm" action="" method="get" class="easydropdown">
+        <input type="hidden" id="page" name="page" value="<%=page%>">
+    </form>
+<!-- Basic Bootstrap Table -->
+<div class="card">
+
+    <form id="certiForm" name="certiForm" action="" method="">
+        <input type="hidden" id="page" name="page" value="<%=page%>">
+    <div class="table-responsive text-nowrap">
+            <table class="table table-hove">
+            <thead>
+                <tr>
+                    <!-- <th><input type="checkbox" name="chkAll" id="chkAll" /></th> -->
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>이미지</th>
+                    <!-- <th>조회수</th> -->
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0" id="tbody">
+            <% if(certi.length > 0) {
+                for(var i = (page * page_num) - page_num; i < (page * page_num); i++) {  
+                    if(i > length){
+                        i++;
+                    }else{%>
+                    
+            <tr>
+            <td>
+                <%=certi.length - i%>
+            </td>
+            <td>
+                <%=certi[i].certiTitle%>
+            </td>
+            <td>
+                <img src="../<%=certi[i].certiImage %>" alt="사진"
+                                                    style="padding:20px !important; width:250px" />
+            </td>
+            </tr>
+            <%} } }else { %>
+            <tr>
+                <td colspan="7">등록된 게시물이 없습니다.</td>
+            </tr>
+            <% } %>
+
+        </td>
+    </tbody>
+</table>
+</form>
+</div>
+</div>
+
+    <div style="margin-top: 30px; margin-left: 20px;">
+        <button id="enrollAction" class="btn btn-primary"
+            onclick="location.href='/admin/certiInsert'">등록</button>
+        <!-- <button class="btn btn-danger" type="button" id="delete_btn">삭제</button> -->
+    </div>
+
+
+    <div>
+        <div class="mt_20">
+            <div class="paging" id="page_navi">
+                <% if(certi.length > 0) { %>
+                <ul class="pagination customPaging">
+                    <li>
+                        <a href="/admin/certiMain?page=1"
+                            class="num">
+                            << </a> </li> <li>
+                                <a <%if((page==1)){%><%} else {%>
+                                    href="/admin/certiMain?page=<%= parseInt(page) - 1 %>"
+                                    class="num" <% } %>>
+                                    < </a> </li> <% for(var i = startPage; i < endPage; i++){  %> <li class="paging_on">
+                                        <a href="/admin/certiMain?page=<%= i + 1 %>"
+                                            <%if(page==i+1){%>class="selected" <%}%> class="num"><%= i + 1 %></a> </li>
+                                            <% } %> <li> <a <%if(page>last-1){%><%} else {%>
+                                                href="/admin/certiMain?page=<%= parseInt(page) + 1 %>"
+                                                class="num" <% } %>>></a></li>
+                    <li><a href="/admin/certiMain?page=<%= last%>"
+                            class="num">>></a></li>
+                </ul>
+                <%}%>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--/ Basic Bootstrap Table -->
+
+<script>
+    $(document).ready(function () {
+        const formObj = $("form[name='certiForm']");
+        // 삭제
+
+        $("#delete_btn").on("click", function () {
+            var chkArr = [];
+            $("input[name=chk]:checked").each(function () {
+                chkArr.push($(this).val());
+            });
+            $('#certiId').val(chkArr);
+            if (chkArr == "") {
+                alert("삭제할 목록을 선택해주세요.");
+                return false;
+            }
+            formObj.attr("action", "/admin/certiDelete/certiDelete");
+            formObj.attr("method", "get");
+            if (confirm("삭제하시겠습니까?") == true) {
+                formObj.submit();
+            } else {
+                return false;
+            }
+        })
+        //쿼리스트링 페이지
+        function getUrlParams() {
+            var params = {};
+            window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
+                params[key] = value;
+            });
+            return params;
+        }
+        var param = getUrlParams();
+        var page = document.getElementById("page");
+        page.value = param.page;
+        const searchForm = $("form[name='searchForm']");
+
+    });
+
+    // 선택
+    $("#chkAll").click(function () {
+        if ($("#chkAll").is(":checked"))
+            $("input[name=chk]").prop("checked", true);
+        else
+            $("input[name=chk]").prop("checked", false);
+    });
+    $("input[name=chk]").click(function () {
+        var total = $("input[name=chk]").length;
+        var checked = $("input[name=chk]:checked").length;
+        if (total != checked)
+            $("#chkAll").prop("checked", false);
+        else
+            $("#chkAll").prop("checked", true);
+    });
+
+
+    function paging(data) {
+        var datas = data;
+        var dataLength = datas.length;
+        var dataPageNum = datas.page_num;
+        var certiDivId = datas.ajaxSearch[0].certiDivId;
+        var datasPage = Number(datas.page);
+        var datasLast = Number(datas.last);
+        var startPage = Number(datas.startPage);
+        var endPage = Number(datas.endPage);
+        var temp = '';
+        temp = `<li>
+                <a href="/admin/certiMain?page=1"
+                class="num">
+                << </a> </li> <li>
+                <a `
+        if (datasPage == 1) {
+            temp += `><</a></li>`
+        } else {
+            temp += `href="/admin/certiMain?page=${datasPage - 1}"
+                class="num">
+                < </a> </li>`
+        }
+        for (var i = datas.startPage; i < datas.endPage; i++) {
+            temp += `<li class="paging_on">
+                    <a href="/admin/certiMain?page=${i + 1}"`
+            if (i != 0) {
+                temp += `class="num">${i + 1}</a> </li>`
+            } else {
+                temp +=
+                    `class="selected" style="background-color:#696CFF;><span style="color:white;">${i + 1}</span></a> </li>`
+            }
+        }
+        temp += `<li> <a `
+        if (datasPage == datasLast) {
+            temp += `> > </a></li>`
+            temp += `<li><a href='/admin/certiMain?page=${datasPage}'`
+            temp += ` class="num">>></a></li>`
+        } else {
+            temp += `href="/admin/certiMain?page=${datasPage + 1}"
+                    class="num">></a></li>
+                    <li><a href="/admin/certiMain?certiDivId=${certiDivId}}&page=${datasLast}"
+                    class="num">>></a></li>`
+        }
+
+        $(".customPaging").html(temp);
+    }
+
+</script>

@@ -1,0 +1,160 @@
+<!-- ckeditor -->
+<script src="../../../../public/build/ckeditor.js"></script>
+<style>
+   .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+      border-color: var(--ck-color-base-border);
+      height: 40%;
+   }
+
+   .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused {
+      height: 400px;
+   }
+
+   .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+      height: 400px;
+   }
+</style>
+
+<div class="col-xs-6">
+   <!-- HTML5 Inputs -->
+   <div class="card mb-4">
+      <h5 class="card-header">새로운 소식 수정</h5>
+      <div class="card-body">
+         <!-- 컨텐츠 -->
+         <form name="udtForm" enctype="multipart/form-data">
+            <input type="hidden" name="page" value="<%=page%>">
+            <input type="hidden" id="writContent" name="newsContent" value="">
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label" for="text-input">글번호</label>
+               <div class="col-md-9">
+                  <input class="form-control" id="newsId" type="text" name="newsId" 
+                     value="<%=result[0].newsId%>" readonly>
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label" for="text-input">제목</label>
+               <div class="col-md-10">
+                  <input class="form-control" id="writTitle" type="text" name="newsTitle"
+                     value="<%=result[0].newsTitle%>">
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label" for="text-input">내용</label>
+               <div class="col-md-10">
+                  <textarea name="editor" class="editor" id="editor"><%-result[0].newsContent %></textarea>
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label"> * 내용 이미지</label>
+               <div class="file-wrap banner_img_wrap col-md-10">
+                  <% if(result[0].newsImage){%>
+               <div class="certi-img">
+                  <img src="../../../<%= result[0].newsImage %>" alt="사진" 
+                  style="width: 250px;"/>
+               </div>
+               <button name="searchAction" data-route="<%=result[0].newsImage%>"
+                  data-img="newsImage" data-inputReset="file"
+                  class="btn btn-block btn-outline-danger fileDelete"
+                  type="button">삭제</button>
+                  <input type="hidden" id="newsImage" name="newsImage"
+                     value="<%=result[0].newsImage%>" />
+               <% } else { %>
+               <input class="newsImage" type="file" id="file" name="file"  />
+               <% } %>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-1 col-form-label"> * 썸네일 이미지</label>
+               <div class="file-wrap banner_img_wrap col-md-10">
+                  <% if(result[0].newsThumbnail){%>
+               <div class="certi-img">
+                  <img src="../../../<%= result[0].newsThumbnail %>" alt="사진" 
+                  style="width: 250px;"/>
+               </div>
+               <button name="searchAction" data-route="<%=result[0].newsThumbnail%>"
+                  data-img="newsThumbnail" data-inputReset="file"
+                  class="btn btn-block btn-outline-danger fileDelete"
+                  type="button">삭제</button>
+                         <input type="hidden" id="newsThumbnail" name="newsThumbnail"
+                  value="<%=result[0].newsThumbnail%>" />
+               <% } else { %>
+               <input class="newsThumbnail" type="file" id="file" name="file"  />
+               <% } %>
+        
+            </div>
+
+                  <!--option 버튼  -->
+                  <div class="demo-inline-spacing">
+                     <button type="button" class="btn btn-primary" id="update_btn">수정</button>
+                     <button type="button" class="btn btn-danger" onclick="history.go(-1)">취소</button>
+                  </div>
+               </div>
+
+         </form>
+      </div>
+   </div>
+</div>
+
+
+<script type="text/javascript">
+   $(document).ready(function () {
+      var nav = document.getElementById('layout-navbar');
+      var footer = document.getElementById('footer');
+
+      //ckeditor
+      ClassicEditor
+         .create(document.querySelector('#editor'), {
+            language: 'ko'
+         })
+         .then(newEditor => {
+            editor = newEditor;
+         })
+         .catch(error => {
+            console.error(error);
+         });
+
+      var formObj = $("form[name='udtForm']");
+      // 수정
+      $("#update_btn").on("click", function () {
+         var writTitle = $("#writTitle").val();
+         var content = editor.getData();
+         if (writTitle == "") {
+            alert("제목을 입력하세요.");
+            $("#writTitle").focus();
+            return false;
+         }
+
+         if (content == null) {
+            alert("내용을 입력하세요.");
+            $("#editor").focus();
+            return false;
+         }
+
+         if (confirm("수정하시겠습니까?") == true) {
+            $('input[id=writContent]').attr('value', content);
+            formObj.attr("action", "newsUpdate");
+            formObj.attr("method", "post");
+            formObj.submit();
+            alert("수정되었습니다.");
+         } else {
+            return;
+         }
+      });
+
+      $('button[name="searchAction"]').on('click', function (e) {
+        parent = this.parentNode;
+        parent.innerHTML = "";
+        const input = document.createElement('input');
+        parent.append(input);
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'deleteFileId');
+        input.value = this.dataset['route'];
+        const inputReset = document.createElement('input');
+        const resetName = this.dataset['inputreset']
+        inputReset.setAttribute('type', 'file');
+        inputReset.setAttribute('id', 'file');
+        inputReset.setAttribute('name', resetName);
+        inputReset.className += 'newsImg'
+        parent.append(inputReset);
+    })
+   })
+</script>

@@ -1,0 +1,142 @@
+<style>
+   * {
+      font-size: large;
+      font-weight: bolder;
+      color: black
+   }
+
+   .form-label,
+   .col-form-label {
+      font-size: large;
+      font-weight: bolder;
+      color: black
+   }
+
+   .form-control {
+      font-size: large;
+      font-weight: bolder;
+      color: black
+   }
+
+   #cmtContent {
+      font-weight: 400;
+   }
+</style>
+<div class="col-xs-6">
+   <!-- HTML5 Inputs -->
+   <div class="card mb-4">
+      <h5 class="card-header">새로운 소식 상세정보</h5>
+      <div class="card-body">
+         <form name="udtForm" role="form">
+            <input type="hidden" id="page" name="page" value="<%=page%>">
+            <input type="hidden" id="searchText" name="searchText" value="<%=searchText%>">
+            <input type="hidden" id="newsId" name="newsId" value="<%=result[0].newsId%>">
+            <!-- 컨텐츠 -->
+            <div class="mb-3 row">
+               <label class="col-md-2 col-form-label" for="text-input">글번호</label>
+               <div class="col-md-9">
+                  <input class="form-control" id="newsId" type="text" name="newsId" disabled="disabled"
+                     value="<%=result[0].newsId%>">
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-2 col-form-label" for="text-input">제목</label>
+               <div class="col-md-9">
+                  <input class="form-control" id="newsTitle" type="text" name="newsTitle" disabled="disabled"
+                     value="<%=result[0].newsTitle%>">
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-2 col-form-label" for="text-input">작성일</label>
+               <div class="col-md-9">
+                  <input class="form-control" id="newsDateFmt" type="text" name="newsDateFmt" disabled="disabled"
+                     value="<%=result[0].newsDateFmt%>">
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-2 col-form-label" for="text-input">내용</label>
+               <div class="col-md-9">
+                  <%-result[0].newsContent%>
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-2 col-form-label">내용이미지</label>
+               <div class="col-md-9">
+                  <% if(result[0].newsImage != null) { %>
+                  <div class="file-wrap">
+                     <div id="" style="padding: 10px;">
+                        <img src="../../../<%= result[0].newsImage %>" alt="사진" 
+                        style="width: 300px;"/>
+                        <input type="hidden" name="newsImage" value="<%=result[0].newsImage%>">
+                     </div>
+                  </div>
+                  <% } else{%>
+                  <div id="fileDiv" style="padding: 10px;">
+                     파일이 없습니다.
+                  </div>
+                  <br>
+                  <% } %>
+               </div>
+            </div>
+            <div class="mb-3 row">
+               <label class="col-md-2 col-form-label">썸네일 이미지</label>
+               <div class="col-md-9">
+                  <% if(result[0].newsThumbnail != null) { %>
+                  <div class="file-wrap">
+                     <div id="" style="padding: 10px;">
+                        <img src="../../../<%= result[0].newsThumbnail %>" alt="사진" 
+                        style="width: 250px;"/>
+                        <input type="hidden" name="newsThumbnail" value="<%=result[0].newsThumbnail%>">
+                     </div>
+                  </div>
+                  <% } else{%>
+                  <div id="fileDiv" style="padding: 10px;">
+                     파일이 없습니다.
+                  </div>
+                  <br>
+                  <% } %>
+               </div>
+            </div>
+         </form>
+         <br><br>
+         <!--option 버튼  -->
+         <div class="demo-inline-spacing">
+            <button type="button" class="btn btn-primary" id="update_btn">수정</button>
+            <button type="button" class="btn btn-danger" id="delete_btn">삭제</button>
+               <button type="button" class="btn btn-dark"
+                  onclick="location.href='/admin/newsMain?page=<%=page%>&searchText=<%=searchText%>'">목록</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script type="text/javascript">
+   $(document).ready(function () {
+
+      $('#writTitle').on('keyup', function () {
+         $('#test_cnt').html("(" + $(this).val().length + " / 300)");
+
+         if ($(this).val().length > 300) {
+            $(this).val($(this).val().substring(0, 300));
+            $('#test_cnt').html("(300 / 300)");
+         }
+      });
+      var formObj = $("form[name='udtForm']");
+      // 수정 폼 연결
+      $("#update_btn").on("click", function () {
+         formObj.attr("action", "newsUpdate");
+         formObj.attr("method", "get");
+         formObj.submit();
+      });
+      // 삭제
+      $("#delete_btn").on("click", function () {
+         formObj.attr("action", "newsDelete/newsDelete");
+         formObj.attr("method", "get");
+         if (confirm("게시글을 삭제하시겠습니까?") == true) {
+            formObj.submit();
+         } else {
+            return;
+         }
+      });
+
+   })
+</script>
