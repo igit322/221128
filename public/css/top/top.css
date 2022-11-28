@@ -1,0 +1,58 @@
+:root {
+  --font-gray-color: #a3a3a3;
+  --gray-color: #dddddd;
+}
+
+.topBtn {
+  position: fixed;
+  z-index: 99999;
+  bottom: 7%;
+  right: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.topBtn a {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--font-gray-color);
+}
+button.move {
+  border-radius: 50%;
+  border: 2px solid var(--gray-color);
+  background: rgba(255, 255, 255, 0.658);
+  cursor: pointer;
+  margin-bottom: 5px;
+  width: 40px;
+  height: 40px;
+}
+button.move i {
+  padding: 0px;
+  font-size: 23px;
+}
+.fa-solid {
+  position: relative;
+  width: 5px;
+  height: 5px;
+  right: 8px;
+  top: -1px
+}
+
+/* 모바일 430사이즈 */
+/* @media screen and (max-width: 430px) {
+  button.move {
+    width: 30px;
+    height: 30px;
+  }
+  button.move i {
+    font-size: 20px;
+  }
+  .fa-solid {
+    width: 1px;
+    height: 1px;
+    right: 8px;
+  }
+  .topBtn a {
+    font-size: 10px;
+  }
+} */

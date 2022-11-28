@@ -1,0 +1,151 @@
+.pro_wrap {
+  position: absolute;
+  width: 40px;
+  height: 80px;
+  top: 5px;
+  left: 3px;
+  z-index: 0;
+}
+
+/* 버튼숨겨놈 */
+/* .pro_wrap .btn_pause {
+  display: none;
+} */
+
+.circle_progress {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  background-color: rgba(34, 34, 34, 0);
+  border-radius: 50%;
+}
+.circle_progress .left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  clip: rect(0, 20px, 40px, 0);
+  background-color: rgba(255, 255, 255, 0.135);
+}
+.circle_progress .left .bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  clip: rect(0, 40px, 40px, 20px);
+  background-color: #ffffff;
+  /* animation: left 5s linear 0s infinite; */
+}
+.circle_progress .right {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  clip: rect(0, 40px, 40px, 20px);
+  background-color: rgba(255, 255, 255, 0.135);
+}
+.circle_progress .right .bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  clip: rect(0, 20px, 40px, 0);
+  background-color: #ffffff;
+}
+
+.addleft {
+  animation: left 10s linear 0s;
+  /* animation: left 3s linear 0s infinite; 무한으로 돌게 할때 붙이는*/
+}
+
+.addright {
+  animation: right 10s linear 0s;
+}
+
+.circle_progress .value {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 9px;
+  bottom: 9px;
+  line-height: 128px;
+  font-size: 16px;
+  color: #888;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgb(99, 99, 99);
+}
+/* .btn_pause {
+  width: 100px;
+  height: 40px;
+  line-height: 15px;
+  margin-top: 10px;
+  padding: 10px 0;
+  text-align: center;
+} */
+.circle {
+  animation-name: keyframes-circle;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+  animation-delay: 0s;
+}
+
+@keyframes left {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes right {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+/* 반응형 위치 변경 */
+@media screen and (max-width: 768px) {
+  .pro_wrap {
+    width: 40px;
+    height: 80px;
+    top: 6px;
+    left: 2px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .pro_wrap {
+    display: none;
+  }
+}

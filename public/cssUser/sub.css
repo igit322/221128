@@ -1,0 +1,80 @@
+#container {max-width: 1200px; margin: 0 auto; overflow: hidden;}
+
+/* ICG DAEGU 2021 BG */
+#Bg2021 {background: url("../images/2021_bg_top.png") no-repeat, url("../images/2021_bg_bottom.png") no-repeat; background-position: 0 -60px, right bottom;}
+
+#sub_banner {width: 100%; height: 320px; position: relative;}
+#sub_banner::after {content: ''; display: block; width: 100%; height: 100%; position: absolute; left: 0; top: 0;}
+#sub_banner.sub_img01::after {background: url("../images/icg_daegu_banner.jpg") no-repeat center;}
+#sub_banner .sub_tit {display: table; height: 320px; width: 100%; text-align: center;}
+#sub_banner .sub_tit > h2 {color: #fff; font-size: 3em; font-weight: bold; display: table-cell; vertical-align: middle; position: relative; z-index: 10;}
+
+.sub_menu {width: 1319px; height: 80px; background: #fcab2e; border-radius: 10px; position: relative; margin: -40px auto 0; z-index: 999; /*transform: skew(-20deg, 0);*/ box-shadow: 0 10px 20px rgba(0,0,0,0.3);}
+.sub_menu .menu_box {max-width: 980px; margin: 0 auto; display: flex; justify-content: space-between;}
+.sub_menu .menu_box li {float: left; line-height: 80px;}
+.sub_menu .menu_box li.on a {background: #499729; border-radius: 50px; padding: 10px 16px; font-weight: bold;}
+.sub_menu .menu_box li a {color: #fff; font-size: 1.2em;}
+
+/* language */
+.language_menu {position: fixed; top: 150px; left: 15px; z-index: 9999; text-align: center;}
+.language_menu .lang_change {display: block; color: #fff; width: 35px; height: 35px; text-align: center; line-height: 35px; margin: 10px 0; font-size: 0.9em; position: relative;}
+.language_menu .lang_change:hover {background: #fcab2e; border-radius: 50%;}
+.language_menu .lang_change.on {background: #fcab2e; border-radius: 50%;}
+.language_menu .lang_change a {color: #fff; font-weight: bold; }
+
+/* quickmenu */
+.quick_menu {position: fixed; top: 200px; right: 30px; z-index: 9999;}
+.quick_menu ul {width: 60px; background: #008d2d; border-radius: 30px; padding: 30px 0; box-shadow: 0 10px 20px rgba(0,0,0,0.3); position: relative; z-index: 9999;}
+.quick_menu .q_tit {text-align: center; color: #fff; font-weight: bold;}
+.quick_menu ul li {position: relative; height: 45px;}
+.quick_menu ul li a {display: none; position: absolute; top: 0; right: 0; width: 100px; height: 45px; padding: 0 60px 0 30px; border-radius: 23px 0 0 23px; line-height: 46px; color: #fff; text-decoration: none;}
+.quick_menu ul li:hover a {display: block;}
+.quick_menu ul li.sns_01 {background: url("../images/sns_twitter.png") no-repeat center;}
+.quick_menu ul li.sns_01 a {background: #fcab2e;}
+.quick_menu ul li.sns_02 {background: url("../images/sns_instar.png") no-repeat center;}
+.quick_menu ul li.sns_02 a {background: #fcab2e;}
+.quick_menu ul li.sns_03 {background: url("../images/sns_facebook.png") no-repeat center;}
+.quick_menu ul li.sns_03 a {background: #fcab2e;}
+
+.quick_menu .quick_top {background: #fcab2e; border-radius: 50%; width: 60px; height: 60px; margin-top: -20px; line-height: 60px; text-align: center; position: relative; z-index: 9998;}
+.quick_menu .quick_top a {color: #fff; font-weight: bold;}
+
+/* ICG DAEGU 2021_slogan */
+.wrap {height: auto; margin: 120px 0 250px;}
+.wrap .cont_tit {font-size: 2.5em; font-weight: bold; text-align: center; margin-bottom: 80px;}
+.wrap .cont_tit::before {content: ''; background: url("../images/sub_icon.png") no-repeat center; width: 70px; height: 20px; display: block; margin: 0 auto 30px;}
+.wrap .c_sub_menu {position: relative;}
+.wrap .c_sub_menu::after {content: ''; width: 100%; height: 1px; background: #EEEEEE; position: absolute; top: 34px; z-index: 1;}
+.wrap .c_sub_menu > ul {overflow: auto; box-sizing: border-box; display: block; white-space: nowrap;}
+.wrap .c_sub_menu > ul > li {float: left; margin-right: 42px;}
+.wrap .c_sub_menu > ul > li a {display: inline-block;  height: 35px; vertical-align: middle; ; color: #9b9b9b; font-size: 1.2em;}
+.wrap .c_sub_menu > ul > li.on a {color: #000; font-weight: bold; position: relative;}
+.wrap .c_sub_menu > ul > li.on a::after {content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 10px; background: #fcab2e; z-index: 5;}
+
+.wrap .content {margin: 40px 0;}
+.wrap .content > span {line-height: 1.5em;}
+.wrap .content .c_tit {font-weight: bold; display: inline-block; width: 5%; vertical-align: top;}
+.wrap .content .c_txt {width: 90%; display: inline-block}
+.wrap .content .c_wrap {margin: 40px 0;}
+
+/* ICG DAEGU 2021_contact us */
+.wrap .content .map {border: 6px solid #c8c6c6;}
+.wrap .content img {max-width: 100%;}
+.wrap .content .contact_tit {color: #ff9b00; font-size: 2em; font-weight: bold; text-align: center; margin: 60px 0;}
+.wrap .content .loc_wrap {overflow: hidden;}
+.c_wrap .loc_wrap .loc_cont {background: #fbcb82; width: 49%; height: 100px; float: left; border-radius: 10px;text-align: center; margin-right: 20px; line-height: 100px;}
+.c_wrap .loc_wrap .loc_cont:last-child {margin-right: 0;}
+.c_wrap .loc_wrap .loc_cont > span {top: 0; font-size: 1.2em; vertical-align: super; font-weight: bold; color: #464646; margin-left: 30px;}
+
+.c_wrap .loc_table {margin: 80px 0;}
+.c_wrap .loc_table ul li {padding: 20px 40px; overflow: hidden; border-top: 4px solid #d2d2d2; border-bottom: 4px solid #d2d2d2; }
+.c_wrap .loc_table ul li:last-child {border-top: 0;}
+.c_wrap .loc_table .t_icon {float: left; display: block; background: #d2d2d2; width: 80px; height: 80px; top: 0; line-height: 85px; text-align: center; border-radius: 50%;}
+.c_wrap .loc_table dl {float: left; margin: 15px 0 0 30px;}
+.c_wrap .loc_table dl .t_tit {color: #499729; font-weight: bold; font-size: 1.3em;}
+.c_wrap .loc_table dl dd {display: inline-block; line-height: 2.5; font-weight: bold; font-size: 1.2em; color: #575857;}
+.c_wrap .loc_table dl dd > i {margin-right: 10px;}
+
+/* 뉴스 */
+.search_wrap {width: 100%; box-sizing: border-box; display: block; overflow: hidden;}
+.search_wrap select {height: 55px; border: 1px solid #d2d2d2; }

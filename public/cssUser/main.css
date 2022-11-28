@@ -1,0 +1,35 @@
+@charset "UTF-8";
+ body {
+ 	margin: 0px;
+ }
+ 
+ .wrap {min-width: 1200px;}
+ .container {
+ 	width: 100%;
+ }
+ 
+ .topbanner_frame2 {
+ 	position: relative;
+ 	z-index: 1;
+ 	width: 100%;
+ 	height:500px;
+ 	background-image: url("/images/user/main/bgimg2.png");
+ 	background-repeat: no-repeat;
+ 	background-position: 0% 100%;
+ }
+/*  .topban_frame {
+ 	position: relative;
+ 	z-index: 1;
+ 	width: 100%;
+ 	height:759px;
+ 	background-image: url("/images/user/main/bgimg2.png");
+ } */
+ 
+ .main_frame {
+ 
+ }
+ 
+ .main_frame_inner{width:100%;}
+ 
+ .tail_frame {
+ }

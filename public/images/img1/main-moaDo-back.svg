@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="534" height="393" viewBox="0 0 534 393">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.466" cy="0.5" r="0.898" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#a687d8"/>
+      <stop offset="0.485" stop-color="#96c3e5"/>
+      <stop offset="1" stop-color="#f1f9ff"/>
+    </radialGradient>
+  </defs>
+  <rect id="사각형_38" data-name="사각형 38" width="534" height="393" fill="url(#radial-gradient)"/>
+</svg>

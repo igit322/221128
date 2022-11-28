@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+#head {padding:20px 0; min-width:1110px; background:#595959; color:#fff;}
+#head p {width:1110px; margin:0 auto;}
+#head span button{margin-left:10px; font-size:11px;}
+
+#lnb {border-bottom:1px solid #c2c2c2; background:#111310; font-weight:bold; font-size:14px; min-width:1110px;}
+#lnb ul {width:1110px; margin:0 auto; border-left:1px solid #494949;}
+#lnb li {float:left; width: 276.5px; border-right:1px solid #494949;  text-align:center;}
+#lnb li a {display:inline-block; width:100%; padding:10px 0; color:#fff;}
+#lnb .on a{background:#2f63c0;}
+
+#container {position:relative; margin:5px auto; padding:20px; width:1070px; background:#fff; border:1px solid #e0e0e0;}
+#container h3 {margin-bottom:10px; padding-left:17px; background:url(../images/h3.gif) left center no-repeat; font-size:14px;}
+
+#footer {text-align:center;}
+
+.popup {margin:0 auto;}
+.popup h2{clear:both; margin-bottom:10px; padding:7px 10px; background:#3b64af;color:#fff; font-size:14px; overflow:hidden;}
+.popup .content .btn {margin-top:20px; padding:20px; text-align:center;}
+.popup .content table {width:100%;}
+.popup .content th, .popup .content td {padding:4px; border:1px solid #c6c6c6;}
+.popup .content th{width:117px; background:#eee;}
+.popup .content td input[type~="text"], .popup .content td input[type~="text"], .popup .content td textarea{width:95%;}
+.popup .content td dt{margin:5px 0 10px 0; color:#999; padding-left:20px; background:url(../images/icon_name.gif) left top no-repeat;}
+.popup .content td dt strong {font-size:14px; color:#000;}
+.popup .content table .title {text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+
+.popup_list {height:155px; overflow-y:auto; overflow-x:hidden;}
+
+
+#head_ios {position:fixed; top:0; width:100%; z-index:2; padding:10px 0 7px 0; background:#2f63c0; text-align:center; color:#fff; font-size:1em; font-weight:bold; line-height:100%;}
+#head_ios img {position:absolute; left:10px; top:7px; height:20px; }
+#container_ios {margin:50px 10px 10px 10px; padding-bottom:65px;}
+#container_ios img {max-width:100%;}
+#footer_ios {position:fixed; bottom:0; width:100%; padding:10px 0; color:#fff; font-size:0.75em; line-height:100%; text-align:center; background:#2f2f2f; z-index:1;}
+
+
+/* 2017 new */
+
+#memberImg, #memberImg2 { width: 97%; }
+#orgmem_position { width: 50%; }
+#orgmem_birth_month, #orgmem_birth_day, #orgmem_join_month { width: 70%; }
+#orgmem_birth_year, #orgmem_join_year { width: 75%; }
+.mb_10 tbody tr td select { width: 100%; }
+.mb_10 tbody tr:nth-of-type(8) td { border: 1.2px solid #c6c6c6; }
