@@ -1,0 +1,10 @@
+{
+  "watch": true,
+  "script": "./bin/www",
+  "ignore_watch" : ["node_modules", "public/images", "uploads"],
+  "watch_options": {
+    "followSymlinks": false
+  },
+  "name": "resoft"
+}
+
